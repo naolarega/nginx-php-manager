@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using nginx_php_manager.model;
 
 namespace nginx_php_manager.lib
 {
@@ -14,10 +15,12 @@ namespace nginx_php_manager.lib
         };
         private static string configFileName = "config";
         private static XmlDocument configDocumment;
+        public static ConfigModel config;
+        public static ConfigStatus status = ConfigStatus.NO_CONFIG;
 
         private Config() { }
 
-        public static ConfigStatus read()
+        public static void read()
         {
             if (File.Exists(configFileName))
             {
@@ -27,17 +30,90 @@ namespace nginx_php_manager.lib
                     configDocumment.Load(
                         string.Format("{0}\\{1}.xml", Directory.GetCurrentDirectory(), configFileName)
                         );
-                    return ConfigStatus.SUCCESS;
+                    deserialize();
+                    status = ConfigStatus.SUCCESS;
 
                 }
                 catch
                 {
-                    return ConfigStatus.FAILED;
+                    status = ConfigStatus.FAILED;
                 }
             }
             else
             {
-                return ConfigStatus.NO_CONFIG;
+                status = ConfigStatus.NO_CONFIG;
+            }
+        }
+
+        private static void deserialize()
+        {
+            if(configDocumment.DocumentElement.Name == "config")
+            {
+                config = new ConfigModel();
+                foreach(XmlNode node in configDocumment.DocumentElement.ChildNodes)
+                {
+                    switch(node.Name)
+                    {
+                        case "nginx":
+                            loadNginxConfig(node.ChildNodes);
+                            break;
+                        case "php":
+                            loadPhpConfig(node.ChildNodes);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        private static void loadNginxConfig(XmlNodeList nginxNode)
+        {
+            foreach(XmlNode node in nginxNode)
+            {
+                if(node.Name == "directory")
+                {
+                }
+                switch (node.Name)
+                {
+                    case "directory":
+                        config.nginx.directory = node.Attributes["value"] != null ?
+                            node.Attributes["value"].Value :
+                            string.Empty;
+                        break;
+                    case "configDirectory":
+                        config.nginx.configDirectory = node.Attributes["value"] != null ?
+                            node.Attributes["value"].Value :
+                            string.Empty;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private static void loadPhpConfig(XmlNodeList nginxNode)
+        {
+            foreach(XmlNode node in nginxNode)
+            {
+                if(node.Name == "directory")
+                {
+                }
+                switch (node.Name)
+                {
+                    case "directory":
+                        config.php.directory = node.Attributes["value"] != null ?
+                            node.Attributes["value"].Value :
+                            string.Empty;
+                        break;
+                    case "configDirectory":
+                        config.php.configDirectory = node.Attributes["value"] != null ?
+                            node.Attributes["value"].Value :
+                            string.Empty;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
