@@ -3,6 +3,6 @@
     public class NginxModel
     {
         public string directory { get; set; }
-        public string configDirectory { get; set; }
+        public string configFile { get; set; }
     }
 }

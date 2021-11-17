@@ -99,11 +99,14 @@ namespace nginx_php_manager.ui
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.Location = new System.Drawing.Point(6, 22);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(413, 117);
             this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.richTextBox1.Text = "N/A";
             // 
             // nginxConfigButton
             // 
@@ -115,6 +118,7 @@ namespace nginx_php_manager.ui
             this.nginxConfigButton.TabIndex = 6;
             this.nginxConfigButton.Text = "Select";
             this.nginxConfigButton.UseVisualStyleBackColor = true;
+            this.nginxConfigButton.Click += new System.EventHandler(this.nginxConfigButton_Click);
             // 
             // nginxConfigTextBox
             // 
@@ -144,6 +148,7 @@ namespace nginx_php_manager.ui
             this.nginxDirectoryButton.TabIndex = 3;
             this.nginxDirectoryButton.Text = "Select";
             this.nginxDirectoryButton.UseVisualStyleBackColor = true;
+            this.nginxDirectoryButton.Click += new System.EventHandler(this.nginxDirectoryButton_Click);
             // 
             // nginxDirectoryTextBox
             // 
@@ -162,6 +167,7 @@ namespace nginx_php_manager.ui
             this.Controls.Add(this.nginxLabel);
             this.Name = "NginxControl";
             this.Size = new System.Drawing.Size(438, 293);
+            this.Load += new System.EventHandler(this.NginxControl_Load);
             this.nginxPanel.ResumeLayout(false);
             this.nginxPanel.PerformLayout();
             this.descriptionGroupBox.ResumeLayout(false);

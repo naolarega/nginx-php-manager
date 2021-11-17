@@ -44,9 +44,9 @@ namespace nginx_php_manager
             this.mainFormTabControl = new System.Windows.Forms.TabControl();
             this.controlTabPage = new System.Windows.Forms.TabPage();
             this.nginxTabPage = new System.Windows.Forms.TabPage();
+            this.nginxControl = new nginx_php_manager.ui.NginxControl();
             this.phpTabPage = new System.Windows.Forms.TabPage();
             this.settingsTabPage = new System.Windows.Forms.TabPage();
-            this.nginxControl1 = new nginx_php_manager.ui.NginxControl();
             this.mainFormMenuStrip.SuspendLayout();
             this.mainFormStatusStrip.SuspendLayout();
             this.mainFormTabControl.SuspendLayout();
@@ -160,7 +160,7 @@ namespace nginx_php_manager
             // 
             // nginxTabPage
             // 
-            this.nginxTabPage.Controls.Add(this.nginxControl1);
+            this.nginxTabPage.Controls.Add(this.nginxControl);
             this.nginxTabPage.Location = new System.Drawing.Point(4, 24);
             this.nginxTabPage.Name = "nginxTabPage";
             this.nginxTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -168,6 +168,13 @@ namespace nginx_php_manager
             this.nginxTabPage.TabIndex = 1;
             this.nginxTabPage.Text = "Nginx";
             this.nginxTabPage.UseVisualStyleBackColor = true;
+            // 
+            // nginxControl
+            // 
+            this.nginxControl.Location = new System.Drawing.Point(7, 7);
+            this.nginxControl.Name = "nginxControl";
+            this.nginxControl.Size = new System.Drawing.Size(578, 247);
+            this.nginxControl.TabIndex = 0;
             // 
             // phpTabPage
             // 
@@ -186,13 +193,6 @@ namespace nginx_php_manager
             this.settingsTabPage.TabIndex = 3;
             this.settingsTabPage.Text = "Settings";
             this.settingsTabPage.UseVisualStyleBackColor = true;
-            // 
-            // nginxControl1
-            // 
-            this.nginxControl1.Location = new System.Drawing.Point(7, 7);
-            this.nginxControl1.Name = "nginxControl1";
-            this.nginxControl1.Size = new System.Drawing.Size(578, 247);
-            this.nginxControl1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -241,7 +241,7 @@ namespace nginx_php_manager
         private System.Windows.Forms.ToolStripStatusLabel mainFormToolStripStatusLabel;
         private System.Windows.Forms.ToolStripProgressBar mainFormToolStripProgressBar;
         private System.Windows.Forms.TabPage settingsTabPage;
-        private ui.NginxControl nginxControl1;
+        private ui.NginxControl nginxControl;
     }
 }
 

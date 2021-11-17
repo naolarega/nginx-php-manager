@@ -3,6 +3,7 @@
     public class PhpModel
     {
         public string directory { get; set; }
-        public string configDirectory { get; set; }
+        public string address { get; set; }
+        public string port { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace nginx_php_manager.lib
         private static XmlDocument configDocumment;
         public static ConfigModel config;
         public static ConfigStatus status = ConfigStatus.NO_CONFIG;
+        public static bool modified = false;
 
         private Config() { }
 
@@ -71,9 +72,6 @@ namespace nginx_php_manager.lib
         {
             foreach(XmlNode node in nginxNode)
             {
-                if(node.Name == "directory")
-                {
-                }
                 switch (node.Name)
                 {
                     case "directory":
@@ -81,8 +79,8 @@ namespace nginx_php_manager.lib
                             node.Attributes["value"].Value :
                             string.Empty;
                         break;
-                    case "configDirectory":
-                        config.nginx.configDirectory = node.Attributes["value"] != null ?
+                    case "configFile":
+                        config.nginx.configFile = node.Attributes["value"] != null ?
                             node.Attributes["value"].Value :
                             string.Empty;
                         break;
@@ -96,9 +94,6 @@ namespace nginx_php_manager.lib
         {
             foreach(XmlNode node in nginxNode)
             {
-                if(node.Name == "directory")
-                {
-                }
                 switch (node.Name)
                 {
                     case "directory":
@@ -106,8 +101,12 @@ namespace nginx_php_manager.lib
                             node.Attributes["value"].Value :
                             string.Empty;
                         break;
-                    case "configDirectory":
-                        config.php.configDirectory = node.Attributes["value"] != null ?
+                    case "bindPath":
+                        config.php.address = node.Attributes["address"] != null ?
+                            node.Attributes["value"].Value :
+                            string.Empty;
+
+                        config.php.port = node.Attributes["port"] != null ?
                             node.Attributes["value"].Value :
                             string.Empty;
                         break;
