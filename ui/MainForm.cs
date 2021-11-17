@@ -55,5 +55,15 @@ namespace nginx_php_manager
                 }
             }
         }
+
+        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            mainFormTabControl.SelectedTab = mainFormTabControl.TabPages["settingsTabPage"];
+        }
     }
 }
