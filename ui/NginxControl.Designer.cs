@@ -33,7 +33,7 @@ namespace nginx_php_manager.ui
             this.nginxDirectoryLabel = new System.Windows.Forms.Label();
             this.nginxPanel = new System.Windows.Forms.Panel();
             this.descriptionGroupBox = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
             this.nginxConfigButton = new System.Windows.Forms.Button();
             this.nginxConfigTextBox = new System.Windows.Forms.TextBox();
             this.nginxConfigLabel = new System.Windows.Forms.Label();
@@ -86,7 +86,7 @@ namespace nginx_php_manager.ui
             this.descriptionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.descriptionGroupBox.Controls.Add(this.richTextBox1);
+            this.descriptionGroupBox.Controls.Add(this.descriptionRichTextBox);
             this.descriptionGroupBox.Location = new System.Drawing.Point(4, 94);
             this.descriptionGroupBox.Name = "descriptionGroupBox";
             this.descriptionGroupBox.Size = new System.Drawing.Size(425, 145);
@@ -94,19 +94,19 @@ namespace nginx_php_manager.ui
             this.descriptionGroupBox.TabStop = false;
             this.descriptionGroupBox.Text = "Description";
             // 
-            // richTextBox1
+            // descriptionRichTextBox
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.descriptionRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Location = new System.Drawing.Point(6, 22);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(413, 117);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "N/A";
+            this.descriptionRichTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.descriptionRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.descriptionRichTextBox.Location = new System.Drawing.Point(6, 22);
+            this.descriptionRichTextBox.Name = "descriptionRichTextBox";
+            this.descriptionRichTextBox.ReadOnly = true;
+            this.descriptionRichTextBox.Size = new System.Drawing.Size(413, 117);
+            this.descriptionRichTextBox.TabIndex = 0;
+            this.descriptionRichTextBox.Text = "N/A";
             // 
             // nginxConfigButton
             // 
@@ -182,7 +182,7 @@ namespace nginx_php_manager.ui
         private System.Windows.Forms.Label nginxDirectoryLabel;
         private System.Windows.Forms.Panel nginxPanel;
         private System.Windows.Forms.GroupBox descriptionGroupBox;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox descriptionRichTextBox;
         private System.Windows.Forms.Button nginxConfigButton;
         private System.Windows.Forms.TextBox nginxConfigTextBox;
         private System.Windows.Forms.Label nginxConfigLabel;

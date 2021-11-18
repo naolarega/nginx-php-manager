@@ -44,6 +44,7 @@ namespace nginx_php_manager
             this.mainFormToolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.mainFormTabControl = new System.Windows.Forms.TabControl();
             this.controlTabPage = new System.Windows.Forms.TabPage();
+            this.phpControl1 = new nginx_php_manager.ui.PhpControl();
             this.nginxTabPage = new System.Windows.Forms.TabPage();
             this.nginxControl = new nginx_php_manager.ui.NginxControl();
             this.phpTabPage = new System.Windows.Forms.TabPage();
@@ -51,6 +52,7 @@ namespace nginx_php_manager
             this.mainFormMenuStrip.SuspendLayout();
             this.mainFormStatusStrip.SuspendLayout();
             this.mainFormTabControl.SuspendLayout();
+            this.controlTabPage.SuspendLayout();
             this.nginxTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,26 +82,26 @@ namespace nginx_php_manager
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsToolStripMenuItem.Text = "Setti&ngs";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(113, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -159,6 +161,7 @@ namespace nginx_php_manager
             // 
             // controlTabPage
             // 
+            this.controlTabPage.Controls.Add(this.phpControl1);
             this.controlTabPage.Location = new System.Drawing.Point(4, 24);
             this.controlTabPage.Name = "controlTabPage";
             this.controlTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -166,6 +169,13 @@ namespace nginx_php_manager
             this.controlTabPage.TabIndex = 0;
             this.controlTabPage.Text = "Control";
             this.controlTabPage.UseVisualStyleBackColor = true;
+            // 
+            // phpControl1
+            // 
+            this.phpControl1.Location = new System.Drawing.Point(6, 6);
+            this.phpControl1.Name = "phpControl1";
+            this.phpControl1.Size = new System.Drawing.Size(508, 248);
+            this.phpControl1.TabIndex = 0;
             // 
             // nginxTabPage
             // 
@@ -226,6 +236,7 @@ namespace nginx_php_manager
             this.mainFormStatusStrip.ResumeLayout(false);
             this.mainFormStatusStrip.PerformLayout();
             this.mainFormTabControl.ResumeLayout(false);
+            this.controlTabPage.ResumeLayout(false);
             this.nginxTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -252,6 +263,7 @@ namespace nginx_php_manager
         private System.Windows.Forms.TabPage settingsTabPage;
         private ui.NginxControl nginxControl;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private ui.PhpControl phpControl1;
     }
 }
 
