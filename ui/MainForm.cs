@@ -37,7 +37,7 @@ namespace nginx_php_manager
                     MessageBoxIcon.Exclamation
                     );
 
-                Config.config = new ConfigModel();
+                Config.init();
             }
         }
 
@@ -67,6 +67,11 @@ namespace nginx_php_manager
         private void settingsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             mainFormTabControl.SelectedTab = mainFormTabControl.TabPages["settingsTabPage"];
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            Config.save();
         }
     }
 }

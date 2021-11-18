@@ -48,15 +48,16 @@ namespace nginx_php_manager.ui
             }
         }
 
+        private void assignValues()
+        {
+            nginxConfigTextBox.Text = Config.config.nginx.configFile;
+            nginxDirectoryTextBox.Text = Config.config.nginx.directory;
+        }
+
         private void NginxControl_Load(object sender, EventArgs e)
         {
-            if(Config.config != null)
-            {
-                if(Config.config.nginx == null)
-                {
-                    Config.config.nginx = new NginxModel();
-                }
-            }
+            Config.init();
+            assignValues();
         }
     }
 }
