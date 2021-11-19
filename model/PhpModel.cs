@@ -4,6 +4,6 @@
     {
         public string directory { get; set; }
         public string address { get; set; }
-        public string port { get; set; }
+        public decimal port { get; set; }
     }
 }

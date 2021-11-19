@@ -80,6 +80,7 @@
             this.phpAddressTextBox.Name = "phpAddressTextBox";
             this.phpAddressTextBox.Size = new System.Drawing.Size(264, 23);
             this.phpAddressTextBox.TabIndex = 5;
+            this.phpAddressTextBox.TextChanged += new System.EventHandler(this.phpAddressTextBox_TextChanged);
             // 
             // phpBinPathLabel
             // 
@@ -100,6 +101,7 @@
             this.phpDirectoryButton.TabIndex = 3;
             this.phpDirectoryButton.Text = "Select";
             this.phpDirectoryButton.UseVisualStyleBackColor = true;
+            this.phpDirectoryButton.Click += new System.EventHandler(this.phpDirectoryButton_Click);
             // 
             // phpDirectoryTextBox
             // 
@@ -141,14 +143,22 @@
             // 
             // phpPortNumericUpDown
             // 
+            this.phpPortNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.phpPortNumericUpDown.Location = new System.Drawing.Point(369, 65);
             this.phpPortNumericUpDown.Margin = new System.Windows.Forms.Padding(3, 3, 40, 3);
+            this.phpPortNumericUpDown.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
             this.phpPortNumericUpDown.Name = "phpPortNumericUpDown";
             this.phpPortNumericUpDown.Size = new System.Drawing.Size(98, 23);
             this.phpPortNumericUpDown.TabIndex = 10;
+            this.phpPortNumericUpDown.ValueChanged += new System.EventHandler(this.phpPortNumericUpDown_ValueChanged);
             // 
             // phpPortLabel
             // 
+            this.phpPortLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.phpPortLabel.AutoSize = true;
             this.phpPortLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.phpPortLabel.Location = new System.Drawing.Point(331, 67);
@@ -188,6 +198,7 @@
             this.Controls.Add(this.phpLabel);
             this.Name = "PhpControl";
             this.Size = new System.Drawing.Size(513, 302);
+            this.Load += new System.EventHandler(this.PhpControl_Load);
             this.descriptionGroupBox.ResumeLayout(false);
             this.nginxPanel.ResumeLayout(false);
             this.nginxPanel.PerformLayout();

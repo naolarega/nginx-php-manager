@@ -108,7 +108,7 @@ namespace nginx_php_manager.lib
 
                 phpBindPath.SetAttribute(
                     "port",
-                    config.php.port
+                    config.php.port.ToString()
                     );
 
                 phpConfig.AppendChild(phpDirectory);
@@ -192,13 +192,17 @@ namespace nginx_php_manager.lib
                             string.Empty;
                         break;
                     case "bindPath":
+                        decimal port = 0xd;
+
                         config.php.address = node.Attributes["address"] != null ?
                             node.Attributes["address"].Value :
                             string.Empty;
 
-                        config.php.port = node.Attributes["port"] != null ?
-                            node.Attributes["port"].Value :
-                            string.Empty;
+                        if(node.Attributes["port"] != null)
+                        {
+                            decimal.TryParse(node.Attributes["port"].Value, out port);
+                            config.php.port = port;
+                        }
                         break;
                     default:
                         break;
