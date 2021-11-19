@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256mm"
+   height="256mm"
+   viewBox="0 0 256 256"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="C:\Users\HP\source\repos\nginx_php_manager\assets\icon\running.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="running.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.16693097"
+     inkscape:cx="572.09277"
+     inkscape:cy="655.95978"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="fill:#23e22c;fill-opacity:1;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       id="path846"
+       cx="128"
+       cy="128"
+       r="116.55849" />
+    <path
+       style="fill:#a4e29a;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 53.015396,49.397688 C 65.207067,38.593569 94.790178,19.883992 125.1681,18.820714 155.54602,17.757435 199.17542,38.713273 209.60929,58.675491 220.04317,78.637708 204.47462,89.504816 193.89056,86.85849 171.95692,81.374437 147.32088,67.08124 126.34518,66.713066 105.36948,66.344891 85.023144,84.685033 64.595861,83.167965 44.168577,81.650898 40.823726,60.201807 53.015396,49.397688 Z"
+       id="path1393"
+       sodipodi:nodetypes="zzzszzz" />
+    <path
+       style="fill:#e2e2e2;fill-opacity:1;stroke:none;stroke-width:0.0976733px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 90.659858,32.973336 c 5.874932,-3.055488 20.130462,-8.346699 34.769002,-8.647402 14.63853,-0.300704 35.6627,5.625768 40.69058,11.271236 5.02789,5.645468 -2.4743,8.71877 -7.57455,7.970367 -10.5694,-1.550931 -22.44104,-5.593157 -32.54881,-5.69728 -10.10779,-0.104122 -19.9123,5.082609 -29.755819,4.653573 -9.843514,-0.429039 -11.455334,-6.495007 -5.580403,-9.550494 z"
+       id="path2836"
+       sodipodi:nodetypes="zzzszzz" />
+    <path
+       style="fill:#31b61c;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 53.015396,208.7943 c 12.191671,10.80412 41.774782,29.51369 72.152704,30.57697 30.37792,1.06328 74.00732,-19.89256 84.44119,-39.85478 10.43388,-19.96221 -5.13467,-30.82932 -15.71873,-28.18299 -21.93364,5.48405 -46.56968,19.77725 -67.54538,20.14542 -20.9757,0.36817 -41.322036,-17.97197 -61.749319,-16.4549 -20.427284,1.51707 -23.772135,22.96616 -11.580465,33.77028 z"
+       id="path3072"
+       sodipodi:nodetypes="zzzszzz" />
+    <path
+       style="fill:#279116;fill-opacity:1;stroke:none;stroke-width:0.111217px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 88.381635,219.83722 c 6.553931,3.55116 22.457055,9.70071 38.787455,10.0502 16.33041,0.34948 39.78446,-6.53839 45.39344,-13.09968 5.60899,-6.56128 -2.76027,-10.13314 -8.44998,-9.26333 -11.79097,1.80253 -25.03469,6.50049 -36.31069,6.6215 -11.276,0.12101 -22.21368,-5.90712 -33.194873,-5.40848 -10.98118,0.49864 -12.779298,7.54864 -6.225352,11.09979 z"
+       id="path3452"
+       sodipodi:nodetypes="zzzszzz" />
+    <circle
+       style="fill:#47e24e;fill-opacity:1;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       id="circle3562"
+       cx="128"
+       cy="128"
+       r="47.611572" />
+    <circle
+       style="fill:#72e277;fill-opacity:1;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       id="circle3906"
+       cx="128"
+       cy="128"
+       r="27.79924" />
+  </g>
+</svg>

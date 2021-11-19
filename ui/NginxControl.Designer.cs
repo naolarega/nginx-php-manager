@@ -46,6 +46,7 @@ namespace nginx_php_manager.ui
             // nginxLabel
             // 
             this.nginxLabel.AutoSize = true;
+            this.nginxLabel.BackColor = System.Drawing.SystemColors.Control;
             this.nginxLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.nginxLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.nginxLabel.Location = new System.Drawing.Point(3, 0);
@@ -99,7 +100,7 @@ namespace nginx_php_manager.ui
             this.descriptionRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.descriptionRichTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.descriptionRichTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.descriptionRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.descriptionRichTextBox.Location = new System.Drawing.Point(6, 22);
             this.descriptionRichTextBox.Name = "descriptionRichTextBox";
