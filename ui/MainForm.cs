@@ -64,14 +64,19 @@ namespace nginx_php_manager
             Application.Exit();
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            mainFormTabControl.SelectedTab = mainFormTabControl.TabPages["settingsTabPage"];
-        }
-
         private void saveToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             Config.save();
+        }
+
+        private void nginxToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            mainFormTabControl.SelectedTab = mainFormTabControl.TabPages["nginxTabPage"];
+        }
+
+        private void phpToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            mainFormTabControl.SelectedTab = mainFormTabControl.TabPages["phpTabPage"];
         }
     }
 }

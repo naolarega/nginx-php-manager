@@ -34,10 +34,12 @@
             this.informationRichTextBox = new System.Windows.Forms.RichTextBox();
             this.phpStatusPictureBox = new System.Windows.Forms.PictureBox();
             this.nginxStatusPictureBox = new System.Windows.Forms.PictureBox();
-            this.phpButton = new System.Windows.Forms.Button();
+            this.phpStartButton = new System.Windows.Forms.Button();
             this.phpLabel = new System.Windows.Forms.Label();
-            this.nginxButton = new System.Windows.Forms.Button();
+            this.nginxStartButton = new System.Windows.Forms.Button();
             this.nginxLabel = new System.Windows.Forms.Label();
+            this.phpStopButton = new System.Windows.Forms.Button();
+            this.nginxStopButton = new System.Windows.Forms.Button();
             this.controlPanelPanel.SuspendLayout();
             this.informationGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.phpStatusPictureBox)).BeginInit();
@@ -60,18 +62,20 @@
             this.controlPanelPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.controlPanelPanel.Controls.Add(this.nginxStopButton);
+            this.controlPanelPanel.Controls.Add(this.phpStopButton);
             this.controlPanelPanel.Controls.Add(this.informationGroupBox);
             this.controlPanelPanel.Controls.Add(this.phpStatusPictureBox);
             this.controlPanelPanel.Controls.Add(this.nginxStatusPictureBox);
-            this.controlPanelPanel.Controls.Add(this.phpButton);
+            this.controlPanelPanel.Controls.Add(this.phpStartButton);
             this.controlPanelPanel.Controls.Add(this.phpLabel);
-            this.controlPanelPanel.Controls.Add(this.nginxButton);
+            this.controlPanelPanel.Controls.Add(this.nginxStartButton);
             this.controlPanelPanel.Controls.Add(this.nginxLabel);
             this.controlPanelPanel.Location = new System.Drawing.Point(3, 48);
             this.controlPanelPanel.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.controlPanelPanel.Name = "controlPanelPanel";
             this.controlPanelPanel.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
-            this.controlPanelPanel.Size = new System.Drawing.Size(413, 205);
+            this.controlPanelPanel.Size = new System.Drawing.Size(398, 205);
             this.controlPanelPanel.TabIndex = 1;
             // 
             // informationGroupBox
@@ -80,9 +84,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.informationGroupBox.Controls.Add(this.informationRichTextBox);
-            this.informationGroupBox.Location = new System.Drawing.Point(164, 13);
+            this.informationGroupBox.Location = new System.Drawing.Point(245, 13);
             this.informationGroupBox.Name = "informationGroupBox";
-            this.informationGroupBox.Size = new System.Drawing.Size(246, 189);
+            this.informationGroupBox.Size = new System.Drawing.Size(150, 189);
             this.informationGroupBox.TabIndex = 6;
             this.informationGroupBox.TabStop = false;
             this.informationGroupBox.Text = "Info";
@@ -95,13 +99,13 @@
             this.informationRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.informationRichTextBox.Location = new System.Drawing.Point(6, 22);
             this.informationRichTextBox.Name = "informationRichTextBox";
-            this.informationRichTextBox.Size = new System.Drawing.Size(234, 161);
+            this.informationRichTextBox.Size = new System.Drawing.Size(138, 161);
             this.informationRichTextBox.TabIndex = 0;
             this.informationRichTextBox.Text = "";
             // 
             // phpStatusPictureBox
             // 
-            this.phpStatusPictureBox.Image = global::nginx_php_manager.Properties.Resources.running;
+            this.phpStatusPictureBox.Image = global::nginx_php_manager.Properties.Resources.stopped;
             this.phpStatusPictureBox.Location = new System.Drawing.Point(13, 42);
             this.phpStatusPictureBox.Name = "phpStatusPictureBox";
             this.phpStatusPictureBox.Size = new System.Drawing.Size(16, 16);
@@ -119,14 +123,15 @@
             this.nginxStatusPictureBox.TabIndex = 4;
             this.nginxStatusPictureBox.TabStop = false;
             // 
-            // phpButton
+            // phpStartButton
             // 
-            this.phpButton.Location = new System.Drawing.Point(83, 39);
-            this.phpButton.Name = "phpButton";
-            this.phpButton.Size = new System.Drawing.Size(75, 23);
-            this.phpButton.TabIndex = 3;
-            this.phpButton.Text = "Start";
-            this.phpButton.UseVisualStyleBackColor = true;
+            this.phpStartButton.Location = new System.Drawing.Point(83, 39);
+            this.phpStartButton.Name = "phpStartButton";
+            this.phpStartButton.Size = new System.Drawing.Size(75, 23);
+            this.phpStartButton.TabIndex = 3;
+            this.phpStartButton.Text = "Start";
+            this.phpStartButton.UseVisualStyleBackColor = true;
+            this.phpStartButton.Click += new System.EventHandler(this.phpStartButton_Click);
             // 
             // phpLabel
             // 
@@ -137,15 +142,15 @@
             this.phpLabel.TabIndex = 2;
             this.phpLabel.Text = "Php:";
             // 
-            // nginxButton
+            // nginxStartButton
             // 
-            this.nginxButton.Location = new System.Drawing.Point(83, 10);
-            this.nginxButton.Name = "nginxButton";
-            this.nginxButton.Size = new System.Drawing.Size(75, 23);
-            this.nginxButton.TabIndex = 1;
-            this.nginxButton.Text = "Start";
-            this.nginxButton.UseVisualStyleBackColor = true;
-            this.nginxButton.Click += new System.EventHandler(this.nginxButton_Click);
+            this.nginxStartButton.Location = new System.Drawing.Point(83, 10);
+            this.nginxStartButton.Name = "nginxStartButton";
+            this.nginxStartButton.Size = new System.Drawing.Size(75, 23);
+            this.nginxStartButton.TabIndex = 1;
+            this.nginxStartButton.Text = "Start";
+            this.nginxStartButton.UseVisualStyleBackColor = true;
+            this.nginxStartButton.Click += new System.EventHandler(this.nginxStartButton_Click);
             // 
             // nginxLabel
             // 
@@ -156,6 +161,26 @@
             this.nginxLabel.TabIndex = 0;
             this.nginxLabel.Text = "Nginx:";
             // 
+            // phpStopButton
+            // 
+            this.phpStopButton.Location = new System.Drawing.Point(164, 39);
+            this.phpStopButton.Name = "phpStopButton";
+            this.phpStopButton.Size = new System.Drawing.Size(75, 23);
+            this.phpStopButton.TabIndex = 7;
+            this.phpStopButton.Text = "Stop";
+            this.phpStopButton.UseVisualStyleBackColor = true;
+            this.phpStopButton.Click += new System.EventHandler(this.phpStopButton_Click);
+            // 
+            // nginxStopButton
+            // 
+            this.nginxStopButton.Location = new System.Drawing.Point(164, 10);
+            this.nginxStopButton.Name = "nginxStopButton";
+            this.nginxStopButton.Size = new System.Drawing.Size(75, 23);
+            this.nginxStopButton.TabIndex = 8;
+            this.nginxStopButton.Text = "Stop";
+            this.nginxStopButton.UseVisualStyleBackColor = true;
+            this.nginxStopButton.Click += new System.EventHandler(this.nginxStopButton_Click);
+            // 
             // ControlPanelControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -163,7 +188,8 @@
             this.Controls.Add(this.controlPanelPanel);
             this.Controls.Add(this.controlPanelLabel);
             this.Name = "ControlPanelControl";
-            this.Size = new System.Drawing.Size(419, 256);
+            this.Size = new System.Drawing.Size(404, 256);
+            this.Load += new System.EventHandler(this.ControlPanelControl_Load);
             this.controlPanelPanel.ResumeLayout(false);
             this.controlPanelPanel.PerformLayout();
             this.informationGroupBox.ResumeLayout(false);
@@ -180,11 +206,13 @@
         private System.Windows.Forms.Panel controlPanelPanel;
         private System.Windows.Forms.PictureBox phpStatusPictureBox;
         private System.Windows.Forms.PictureBox nginxStatusPictureBox;
-        private System.Windows.Forms.Button phpButton;
+        private System.Windows.Forms.Button phpStartButton;
         private System.Windows.Forms.Label phpLabel;
-        private System.Windows.Forms.Button nginxButton;
+        private System.Windows.Forms.Button nginxStartButton;
         private System.Windows.Forms.Label nginxLabel;
         private System.Windows.Forms.GroupBox informationGroupBox;
         private System.Windows.Forms.RichTextBox informationRichTextBox;
+        private System.Windows.Forms.Button nginxStopButton;
+        private System.Windows.Forms.Button phpStopButton;
     }
 }
