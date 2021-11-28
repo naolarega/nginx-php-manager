@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using nginx_php_manager.Properties;
+using nginx_php_manager.lib;
 
 namespace nginx_php_manager.ui
 {
@@ -28,6 +29,7 @@ namespace nginx_php_manager.ui
             }
             else
             {
+                ProcessManagement.startNginxProcess();
                 changeNginxStatus(ProcessStatus.RUNNING);
             }
         }
@@ -107,6 +109,7 @@ namespace nginx_php_manager.ui
             }
             else
             {
+                ProcessManagement.startPhpProcess();
                 changephpStatus(ProcessStatus.RUNNING);
             }
         }

@@ -30,6 +30,8 @@
         {
             this.controlPanelLabel = new System.Windows.Forms.Label();
             this.controlPanelPanel = new System.Windows.Forms.Panel();
+            this.nginxStopButton = new System.Windows.Forms.Button();
+            this.phpStopButton = new System.Windows.Forms.Button();
             this.informationGroupBox = new System.Windows.Forms.GroupBox();
             this.informationRichTextBox = new System.Windows.Forms.RichTextBox();
             this.phpStatusPictureBox = new System.Windows.Forms.PictureBox();
@@ -38,8 +40,6 @@
             this.phpLabel = new System.Windows.Forms.Label();
             this.nginxStartButton = new System.Windows.Forms.Button();
             this.nginxLabel = new System.Windows.Forms.Label();
-            this.phpStopButton = new System.Windows.Forms.Button();
-            this.nginxStopButton = new System.Windows.Forms.Button();
             this.controlPanelPanel.SuspendLayout();
             this.informationGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.phpStatusPictureBox)).BeginInit();
@@ -78,6 +78,26 @@
             this.controlPanelPanel.Size = new System.Drawing.Size(398, 205);
             this.controlPanelPanel.TabIndex = 1;
             // 
+            // nginxStopButton
+            // 
+            this.nginxStopButton.Location = new System.Drawing.Point(164, 10);
+            this.nginxStopButton.Name = "nginxStopButton";
+            this.nginxStopButton.Size = new System.Drawing.Size(75, 23);
+            this.nginxStopButton.TabIndex = 8;
+            this.nginxStopButton.Text = "Stop";
+            this.nginxStopButton.UseVisualStyleBackColor = true;
+            this.nginxStopButton.Click += new System.EventHandler(this.nginxStopButton_Click);
+            // 
+            // phpStopButton
+            // 
+            this.phpStopButton.Location = new System.Drawing.Point(164, 39);
+            this.phpStopButton.Name = "phpStopButton";
+            this.phpStopButton.Size = new System.Drawing.Size(75, 23);
+            this.phpStopButton.TabIndex = 7;
+            this.phpStopButton.Text = "Stop";
+            this.phpStopButton.UseVisualStyleBackColor = true;
+            this.phpStopButton.Click += new System.EventHandler(this.phpStopButton_Click);
+            // 
             // informationGroupBox
             // 
             this.informationGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -96,9 +116,11 @@
             this.informationRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.informationRichTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.informationRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.informationRichTextBox.Location = new System.Drawing.Point(6, 22);
             this.informationRichTextBox.Name = "informationRichTextBox";
+            this.informationRichTextBox.ReadOnly = true;
             this.informationRichTextBox.Size = new System.Drawing.Size(138, 161);
             this.informationRichTextBox.TabIndex = 0;
             this.informationRichTextBox.Text = "";
@@ -160,26 +182,6 @@
             this.nginxLabel.Size = new System.Drawing.Size(42, 15);
             this.nginxLabel.TabIndex = 0;
             this.nginxLabel.Text = "Nginx:";
-            // 
-            // phpStopButton
-            // 
-            this.phpStopButton.Location = new System.Drawing.Point(164, 39);
-            this.phpStopButton.Name = "phpStopButton";
-            this.phpStopButton.Size = new System.Drawing.Size(75, 23);
-            this.phpStopButton.TabIndex = 7;
-            this.phpStopButton.Text = "Stop";
-            this.phpStopButton.UseVisualStyleBackColor = true;
-            this.phpStopButton.Click += new System.EventHandler(this.phpStopButton_Click);
-            // 
-            // nginxStopButton
-            // 
-            this.nginxStopButton.Location = new System.Drawing.Point(164, 10);
-            this.nginxStopButton.Name = "nginxStopButton";
-            this.nginxStopButton.Size = new System.Drawing.Size(75, 23);
-            this.nginxStopButton.TabIndex = 8;
-            this.nginxStopButton.Text = "Stop";
-            this.nginxStopButton.UseVisualStyleBackColor = true;
-            this.nginxStopButton.Click += new System.EventHandler(this.nginxStopButton_Click);
             // 
             // ControlPanelControl
             // 
