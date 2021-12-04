@@ -14,6 +14,14 @@ namespace nginx_php_manager.lib
         };
         public static ProcessStatus nginxStatus { get; set; }
         public static ProcessStatus phpStatus { get; set; }
+        public delegate void ProcessManagementEventHandler(string message);
+        public delegate void ProcessManagementExitEventHandler(int code);
+        public static event ProcessManagementEventHandler nginxDataRecieved;
+        public static event ProcessManagementEventHandler phpDataRecieved;
+        public static event ProcessManagementEventHandler nginxErrorRecieved;
+        public static event ProcessManagementEventHandler phpErrorRecieved;
+        public static event ProcessManagementExitEventHandler phpExited;
+        public static event ProcessManagementExitEventHandler nginxExited;
 
         public static void startNginxProcess()
         {
@@ -28,6 +36,13 @@ namespace nginx_php_manager.lib
 
                 nginxProcess.StartInfo.FileName = string.Format("{0}\\nginx.exe", Config.config.nginx.directory.Trim('\\'));
                 nginxProcess.StartInfo.WorkingDirectory = Config.config.nginx.directory;
+                nginxProcess.StartInfo.RedirectStandardOutput = true;
+                nginxProcess.StartInfo.RedirectStandardError = true;
+                nginxProcess.EnableRaisingEvents = true;
+
+                nginxProcess.OutputDataReceived += (sender, e) => { nginxDataRecieved(e.ToString()); };
+                nginxProcess.ErrorDataReceived += (sender, e) => { nginxErrorRecieved(e.ToString()); };
+                nginxProcess.Exited += (sender, e) => { nginxExited(1); };
 
                 try
                 {
@@ -58,6 +73,13 @@ namespace nginx_php_manager.lib
                     Config.config.php.address,
                     Config.config.php.port
                     );
+                phpProcess.StartInfo.RedirectStandardOutput = true;
+                phpProcess.StartInfo.RedirectStandardError = true;
+                phpProcess.EnableRaisingEvents = true;
+
+                phpProcess.OutputDataReceived += (sender, e) => { phpDataRecieved(e.ToString()); };
+                phpProcess.ErrorDataReceived += (sender, e) => { phpErrorRecieved(e.ToString()); };
+                phpProcess.Exited += (sender, e) => { phpExited(1); };
 
                 try
                 {

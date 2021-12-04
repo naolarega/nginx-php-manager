@@ -29,6 +29,33 @@ namespace nginx_php_manager.ui
             }
             else
             {
+                ProcessManagement.nginxDataRecieved += (e) =>
+                {
+                    MessageBox.Show(
+                        e,
+                        "Nginx start",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                        );
+                };
+                ProcessManagement.nginxErrorRecieved += (e) =>
+                {
+                    MessageBox.Show(
+                        e,
+                        "Nginx error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                        );
+                };
+                ProcessManagement.nginxExited += (e) =>
+                {
+                    MessageBox.Show(
+                        string.Format("Exited with : {0}", e),
+                        "Nginx error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                        );
+                };
                 ProcessManagement.startNginxProcess();
                 changeNginxStatus(ProcessStatus.RUNNING);
             }
@@ -109,6 +136,33 @@ namespace nginx_php_manager.ui
             }
             else
             {
+                ProcessManagement.phpDataRecieved += (e) =>
+                {
+                    MessageBox.Show(
+                        e,
+                        "Php data",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                        );
+                };
+                ProcessManagement.phpErrorRecieved += (e) =>
+                {
+                    MessageBox.Show(
+                        e,
+                        "Php error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                        );
+                };
+                ProcessManagement.phpExited += (e) =>
+                {
+                    MessageBox.Show(
+                        string.Format("Exited with : {0}", e),
+                        "Php error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                        );
+                };
                 ProcessManagement.startPhpProcess();
                 changephpStatus(ProcessStatus.RUNNING);
             }
