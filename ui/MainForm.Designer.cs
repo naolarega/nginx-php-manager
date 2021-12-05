@@ -1,5 +1,5 @@
 ﻿
-namespace nginx_php_manager
+namespace nginx_php_manager.ui
 {
     partial class MainForm
     {
@@ -34,9 +34,12 @@ namespace nginx_php_manager
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nginxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.phpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormStatusStrip = new System.Windows.Forms.StatusStrip();
@@ -49,8 +52,6 @@ namespace nginx_php_manager
             this.nginxControl = new nginx_php_manager.ui.NginxControl();
             this.phpTabPage = new System.Windows.Forms.TabPage();
             this.phpControl = new nginx_php_manager.ui.PhpControl();
-            this.nginxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.phpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormMenuStrip.SuspendLayout();
             this.mainFormStatusStrip.SuspendLayout();
             this.mainFormTabControl.SuspendLayout();
@@ -85,7 +86,7 @@ namespace nginx_php_manager
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -95,26 +96,49 @@ namespace nginx_php_manager
             this.nginxToolStripMenuItem,
             this.phpToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsToolStripMenuItem.Text = "Setti&ngs";
+            // 
+            // nginxToolStripMenuItem
+            // 
+            this.nginxToolStripMenuItem.Name = "nginxToolStripMenuItem";
+            this.nginxToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.nginxToolStripMenuItem.Text = "&Nginx";
+            this.nginxToolStripMenuItem.Click += new System.EventHandler(this.nginxToolStripMenuItem_Click);
+            // 
+            // phpToolStripMenuItem
+            // 
+            this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
+            this.phpToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.phpToolStripMenuItem.Text = "&Php";
+            this.phpToolStripMenuItem.Click += new System.EventHandler(this.phpToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(113, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToTrayToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
+            // 
+            // closeToTrayToolStripMenuItem
+            // 
+            this.closeToTrayToolStripMenuItem.CheckOnClick = true;
+            this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
+            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToTrayToolStripMenuItem.Text = "&Close to tray";
             // 
             // helpToolStripMenuItem
             // 
@@ -129,6 +153,7 @@ namespace nginx_php_manager
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // mainFormStatusStrip
             // 
@@ -214,20 +239,6 @@ namespace nginx_php_manager
             this.phpControl.Size = new System.Drawing.Size(585, 254);
             this.phpControl.TabIndex = 0;
             // 
-            // nginxToolStripMenuItem
-            // 
-            this.nginxToolStripMenuItem.Name = "nginxToolStripMenuItem";
-            this.nginxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.nginxToolStripMenuItem.Text = "&Nginx";
-            this.nginxToolStripMenuItem.Click += new System.EventHandler(this.nginxToolStripMenuItem_Click);
-            // 
-            // phpToolStripMenuItem
-            // 
-            this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
-            this.phpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.phpToolStripMenuItem.Text = "&Php";
-            this.phpToolStripMenuItem.Click += new System.EventHandler(this.phpToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -243,6 +254,7 @@ namespace nginx_php_manager
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(640, 380);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nginx php manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -282,6 +294,7 @@ namespace nginx_php_manager
         private ui.ControlPanelControl controlPanelControl;
         private System.Windows.Forms.ToolStripMenuItem nginxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem phpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToTrayToolStripMenuItem;
     }
 }
 

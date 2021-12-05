@@ -1,8 +1,7 @@
 ﻿using System.Windows.Forms;
 using nginx_php_manager.lib;
-using nginx_php_manager.model;
 
-namespace nginx_php_manager
+namespace nginx_php_manager.ui
 {
     public partial class MainForm : Form
     {
@@ -77,6 +76,12 @@ namespace nginx_php_manager
         private void phpToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             mainFormTabControl.SelectedTab = mainFormTabControl.TabPages["phpTabPage"];
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            AboutForm aboutDialog = new AboutForm();
+            aboutDialog.ShowDialog();
         }
     }
 }
