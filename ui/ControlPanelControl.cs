@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using nginx_php_manager.Properties;
 using nginx_php_manager.lib;
+using nginx_php_manager.Properties;
 
 namespace nginx_php_manager.ui
 {
