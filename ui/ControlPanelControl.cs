@@ -23,46 +23,32 @@ namespace nginx_php_manager.ui
 
         private void nginxStartButton_Click(object sender, EventArgs e)
         {
-            if(nginxStatus == ProcessStatus.RUNNING)
+            if (ProcessManagement.startNginxProcess())
             {
-                changeNginxStatus(ProcessStatus.PAUSED);
+                changeNginxStatus(ProcessStatus.RUNNING);
             }
             else
             {
-                ProcessManagement.nginxDataRecieved += (e) =>
-                {
-                    MessageBox.Show(
-                        e,
-                        "Nginx start",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                        );
-                };
-                ProcessManagement.nginxErrorRecieved += (e) =>
-                {
-                    MessageBox.Show(
-                        e,
-                        "Nginx error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                        );
-                };
-                ProcessManagement.nginxExited += (e) =>
-                {
-                    MessageBox.Show(
-                        string.Format("Exited with : {0}", e),
-                        "Nginx error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                        );
-                };
-                ProcessManagement.startNginxProcess();
-                changeNginxStatus(ProcessStatus.RUNNING);
+                changeNginxStatus(ProcessStatus.STOPPED);
             }
         }
 
         private void ControlPanelControl_Load(object sender, EventArgs e)
         {
+            if(ProcessManagement.isProcessAlreadyRunning(
+                ProcessManagement.nginxProcessName
+                ))
+            {
+                changeNginxStatus(ProcessStatus.RUNNING);
+            }
+
+            if(ProcessManagement.isProcessAlreadyRunning(
+                ProcessManagement.phpProcessName
+                ))
+            {
+                changephpStatus(ProcessStatus.RUNNING);
+            }
+            registerEvents();
             checkNginxStatus();
             checkPhpStatus();
         }
@@ -83,21 +69,15 @@ namespace nginx_php_manager.ui
         {
             if(nginxStatus == ProcessStatus.RUNNING)
             {
-                nginxStatusPictureBox.Image = Resources.running;
-                nginxStartButton.Text = "Pause";
-                nginxStopButton.Enabled = true;
-            }
-            else if (nginxStatus == ProcessStatus.PAUSED)
-            {
-                nginxStatusPictureBox.Image = Resources.paused;
-                nginxStartButton.Text = "Continue";
-                nginxStopButton.Enabled = true;
+                nginxStatusPictureBox.PerformSafely(() => nginxStatusPictureBox.Image = Resources.running);
+                nginxStopButton.PerformSafely(() => nginxStopButton.Enabled = true);
+                nginxStartButton.PerformSafely(() => nginxStartButton.Enabled = false);
             }
             else
             {
-                nginxStatusPictureBox.Image = Resources.stopped;
-                nginxStartButton.Text = "Start";
-                nginxStopButton.Enabled = false;
+                nginxStatusPictureBox.PerformSafely(() => nginxStatusPictureBox.Image = Resources.stopped);
+                nginxStopButton.PerformSafely(() => nginxStopButton.Enabled = false);
+                nginxStartButton.PerformSafely(() => nginxStartButton.Enabled = true);
             }
         }
 
@@ -105,72 +85,107 @@ namespace nginx_php_manager.ui
         {
             if (phpStatus == ProcessStatus.RUNNING)
             {
-                phpStatusPictureBox.Image = Resources.running;
-                phpStartButton.Text = "Pause";
-                phpStopButton.Enabled = true;
-            }
-            else if (phpStatus == ProcessStatus.PAUSED)
-            {
-                phpStatusPictureBox.Image = Resources.paused;
-                phpStartButton.Text = "Continue";
-                phpStopButton.Enabled = true;
+                phpStatusPictureBox.PerformSafely(() => phpStatusPictureBox.Image = Resources.running);
+                phpStopButton.PerformSafely(() => phpStopButton.Enabled = true);
+                phpStartButton.PerformSafely(() => phpStartButton.Enabled = false);
             }
             else
             {
-                phpStatusPictureBox.Image = Resources.stopped;
-                phpStartButton.Text = "Start";
-                phpStopButton.Enabled = false;
+                phpStatusPictureBox.PerformSafely(() => phpStatusPictureBox.Image = Resources.stopped);
+                phpStopButton.PerformSafely(() => phpStopButton.Enabled = false);
+                phpStartButton.PerformSafely(() => phpStartButton.Enabled = true);
             }
         }
 
         private void nginxStopButton_Click(object sender, EventArgs e)
         {
-            changeNginxStatus(ProcessStatus.STOPPED);
+            ProcessManagement.stopNginxProcess();
         }
 
         private void phpStartButton_Click(object sender, EventArgs e)
         {
-            if(phpStatus == ProcessStatus.RUNNING)
+            if (ProcessManagement.startPhpProcess())
             {
-                changephpStatus(ProcessStatus.PAUSED);
-            }
-            else
-            {
-                ProcessManagement.phpDataRecieved += (e) =>
-                {
-                    MessageBox.Show(
-                        e,
-                        "Php data",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                        );
-                };
-                ProcessManagement.phpErrorRecieved += (e) =>
-                {
-                    MessageBox.Show(
-                        e,
-                        "Php error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                        );
-                };
-                ProcessManagement.phpExited += (e) =>
-                {
-                    MessageBox.Show(
-                        string.Format("Exited with : {0}", e),
-                        "Php error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                        );
-                };
-                ProcessManagement.startPhpProcess();
                 changephpStatus(ProcessStatus.RUNNING);
             }
         }
 
         private void phpStopButton_Click(object sender, EventArgs e)
         {
+            ProcessManagement.stopPhpProcess();
+        }
+
+        private void registerEvents()
+        {
+            ProcessManagement.nginxDataRecieved += onNginxDataRecieved;
+            ProcessManagement.nginxErrorRecieved += onNginxErrorRecieved;
+            ProcessManagement.nginxExited += onNginxExited;
+
+            ProcessManagement.phpDataRecieved += onPhpDataRecieved;
+            ProcessManagement.phpErrorRecieved += onPhpErrorRecieved;
+            ProcessManagement.phpExited += onPhpExited;
+        }
+        
+        public void onNginxDataRecieved(string e)
+        {
+            MessageBox.Show(
+                e,
+                "Nginx message",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                );
+        }
+
+        public void onNginxErrorRecieved(string e)
+        {
+            MessageBox.Show(
+                e,
+                "Nginx error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+                );
+        }
+
+        public void onNginxExited(int e)
+        {
+            changeNginxStatus(ProcessStatus.STOPPED);
+            MessageBox.Show(
+                string.Format("Exited with : {0}", e),
+                "Nginx exited",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                );
+        }
+
+        public void onPhpDataRecieved(string e)
+        {
+            MessageBox.Show(
+                e,
+                "Php message",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                );
+        }
+
+        public void onPhpErrorRecieved(string e)
+        {
+            MessageBox.Show(
+                e,
+                "Php error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+                );
+        }
+
+        public void onPhpExited(int e)
+        {
             changephpStatus(ProcessStatus.STOPPED);
+            MessageBox.Show(
+                string.Format("Exited with : {0}", e),
+                "Php exited",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                );
         }
     }
 }
