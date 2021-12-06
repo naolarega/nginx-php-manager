@@ -23,14 +23,7 @@ namespace nginx_php_manager.ui
 
         private void nginxStartButton_Click(object sender, EventArgs e)
         {
-            if (ProcessManagement.startNginxProcess())
-            {
-                changeNginxStatus(ProcessStatus.RUNNING);
-            }
-            else
-            {
-                changeNginxStatus(ProcessStatus.STOPPED);
-            }
+            ProcessManagement.startNginxProcess();
         }
 
         private void ControlPanelControl_Load(object sender, EventArgs e)
@@ -46,7 +39,7 @@ namespace nginx_php_manager.ui
                 ProcessManagement.phpProcessName
                 ))
             {
-                changephpStatus(ProcessStatus.RUNNING);
+                changePhpStatus(ProcessStatus.RUNNING);
             }
             registerEvents();
             checkNginxStatus();
@@ -59,7 +52,7 @@ namespace nginx_php_manager.ui
             checkNginxStatus();
         }
 
-        private void changephpStatus(ProcessStatus status)
+        private void changePhpStatus(ProcessStatus status)
         {
             phpStatus = status;
             checkPhpStatus();
@@ -104,10 +97,7 @@ namespace nginx_php_manager.ui
 
         private void phpStartButton_Click(object sender, EventArgs e)
         {
-            if (ProcessManagement.startPhpProcess())
-            {
-                changephpStatus(ProcessStatus.RUNNING);
-            }
+            ProcessManagement.startPhpProcess();
         }
 
         private void phpStopButton_Click(object sender, EventArgs e)
@@ -119,11 +109,61 @@ namespace nginx_php_manager.ui
         {
             ProcessManagement.nginxDataRecieved += onNginxDataRecieved;
             ProcessManagement.nginxErrorRecieved += onNginxErrorRecieved;
-            ProcessManagement.nginxExited += onNginxExited;
+            ProcessManagement.nginxStarted += onNginxStarted;
+            ProcessManagement.nginxStopped += onNginxStopped;
 
             ProcessManagement.phpDataRecieved += onPhpDataRecieved;
             ProcessManagement.phpErrorRecieved += onPhpErrorRecieved;
-            ProcessManagement.phpExited += onPhpExited;
+            ProcessManagement.phpStarted += onPhpStarted;
+            ProcessManagement.phpStopped += onPhpStopped;
+        }
+
+        public void onPhpStarted(bool started)
+        {
+            if (started)
+            {
+                changePhpStatus(ProcessStatus.RUNNING);
+            }
+            else
+            {
+                changePhpStatus(ProcessStatus.STOPPED);
+            }
+        }
+
+        public void onPhpStopped(bool stopped)
+        {
+            if (stopped)
+            {
+                changePhpStatus(ProcessStatus.STOPPED);
+            }
+            else
+            {
+                changePhpStatus(ProcessStatus.RUNNING);
+            }
+        }
+
+        public void onNginxStarted(bool started)
+        {
+            if (started)
+            {
+                changeNginxStatus(ProcessStatus.RUNNING);
+            }
+            else
+            {
+                changeNginxStatus(ProcessStatus.STOPPED);
+            }
+        }
+
+        public void onNginxStopped(bool stopped)
+        {
+            if (stopped)
+            {
+                changeNginxStatus(ProcessStatus.STOPPED);
+            }
+            else
+            {
+                changeNginxStatus(ProcessStatus.RUNNING);
+            }
         }
         
         public void onNginxDataRecieved(string e)
@@ -146,17 +186,6 @@ namespace nginx_php_manager.ui
                 );
         }
 
-        public void onNginxExited(int e)
-        {
-            changeNginxStatus(ProcessStatus.STOPPED);
-            MessageBox.Show(
-                string.Format("Exited with : {0}", e),
-                "Nginx exited",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-                );
-        }
-
         public void onPhpDataRecieved(string e)
         {
             MessageBox.Show(
@@ -174,17 +203,6 @@ namespace nginx_php_manager.ui
                 "Php error",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error
-                );
-        }
-
-        public void onPhpExited(int e)
-        {
-            changephpStatus(ProcessStatus.STOPPED);
-            MessageBox.Show(
-                string.Format("Exited with : {0}", e),
-                "Php exited",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
                 );
         }
     }

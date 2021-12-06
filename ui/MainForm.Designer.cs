@@ -56,14 +56,14 @@ namespace nginx_php_manager.ui
             this.mainNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.mainTrayContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.phpTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startPhpTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopPhpTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nginxTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.startNginxTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopNginxTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayDividerToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.exitTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormMenuStrip.SuspendLayout();
             this.mainFormStatusStrip.SuspendLayout();
             this.mainFormTabControl.SuspendLayout();
@@ -99,7 +99,7 @@ namespace nginx_php_manager.ui
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -109,32 +109,32 @@ namespace nginx_php_manager.ui
             this.nginxToolStripMenuItem,
             this.phpToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingsToolStripMenuItem.Text = "Setti&ngs";
             // 
             // nginxToolStripMenuItem
             // 
             this.nginxToolStripMenuItem.Name = "nginxToolStripMenuItem";
-            this.nginxToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.nginxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nginxToolStripMenuItem.Text = "&Nginx";
             this.nginxToolStripMenuItem.Click += new System.EventHandler(this.nginxToolStripMenuItem_Click);
             // 
             // phpToolStripMenuItem
             // 
             this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
-            this.phpToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.phpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.phpToolStripMenuItem.Text = "&Php";
             this.phpToolStripMenuItem.Click += new System.EventHandler(this.phpToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(113, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -267,71 +267,77 @@ namespace nginx_php_manager.ui
             // 
             this.mainTrayContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showFormToolStripMenuItem,
-            this.phpTrayToolStripMenuItem,
             this.nginxTrayToolStripMenuItem,
-            this.toolStripMenuItem2,
+            this.phpTrayToolStripMenuItem,
+            this.trayDividerToolStripMenuItem,
             this.exitTrayToolStripMenuItem});
             this.mainTrayContextMenuStrip.Name = "mainTrayContextMenuStrip";
-            this.mainTrayContextMenuStrip.Size = new System.Drawing.Size(181, 120);
+            this.mainTrayContextMenuStrip.Size = new System.Drawing.Size(133, 98);
             // 
             // showFormToolStripMenuItem
             // 
             this.showFormToolStripMenuItem.Name = "showFormToolStripMenuItem";
-            this.showFormToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showFormToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.showFormToolStripMenuItem.Text = "&Show form";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // exitTrayToolStripMenuItem
-            // 
-            this.exitTrayToolStripMenuItem.Name = "exitTrayToolStripMenuItem";
-            this.exitTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitTrayToolStripMenuItem.Text = "&Exit";
+            this.showFormToolStripMenuItem.Click += new System.EventHandler(this.showFormToolStripMenuItem_Click);
             // 
             // phpTrayToolStripMenuItem
             // 
             this.phpTrayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem,
-            this.stopToolStripMenuItem});
+            this.startPhpTrayToolStripMenuItem,
+            this.stopPhpTrayToolStripMenuItem});
             this.phpTrayToolStripMenuItem.Name = "phpTrayToolStripMenuItem";
-            this.phpTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.phpTrayToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.phpTrayToolStripMenuItem.Text = "&Php";
+            // 
+            // startPhpTrayToolStripMenuItem
+            // 
+            this.startPhpTrayToolStripMenuItem.Name = "startPhpTrayToolStripMenuItem";
+            this.startPhpTrayToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.startPhpTrayToolStripMenuItem.Text = "&Start";
+            this.startPhpTrayToolStripMenuItem.Click += new System.EventHandler(this.startPhpTrayToolStripMenuItem_Click);
+            // 
+            // stopPhpTrayToolStripMenuItem
+            // 
+            this.stopPhpTrayToolStripMenuItem.Name = "stopPhpTrayToolStripMenuItem";
+            this.stopPhpTrayToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.stopPhpTrayToolStripMenuItem.Text = "S&top";
+            this.stopPhpTrayToolStripMenuItem.Click += new System.EventHandler(this.stopPhpTrayToolStripMenuItem_Click);
             // 
             // nginxTrayToolStripMenuItem
             // 
             this.nginxTrayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem1,
-            this.stopToolStripMenuItem1});
+            this.startNginxTrayToolStripMenuItem,
+            this.stopNginxTrayToolStripMenuItem});
             this.nginxTrayToolStripMenuItem.Name = "nginxTrayToolStripMenuItem";
-            this.nginxTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nginxTrayToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.nginxTrayToolStripMenuItem.Text = "&Nginx";
             // 
-            // startToolStripMenuItem
+            // startNginxTrayToolStripMenuItem
             // 
-            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.startToolStripMenuItem.Text = "&Start";
+            this.startNginxTrayToolStripMenuItem.Name = "startNginxTrayToolStripMenuItem";
+            this.startNginxTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startNginxTrayToolStripMenuItem.Text = "&Start";
+            this.startNginxTrayToolStripMenuItem.Click += new System.EventHandler(this.startNginxTrayToolStripMenuItem_Click);
             // 
-            // stopToolStripMenuItem
+            // stopNginxTrayToolStripMenuItem
             // 
-            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.stopToolStripMenuItem.Text = "S&top";
+            this.stopNginxTrayToolStripMenuItem.Name = "stopNginxTrayToolStripMenuItem";
+            this.stopNginxTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopNginxTrayToolStripMenuItem.Text = "S&top";
+            this.stopNginxTrayToolStripMenuItem.Click += new System.EventHandler(this.stopNginxTrayToolStripMenuItem_Click);
             // 
-            // startToolStripMenuItem1
+            // trayDividerToolStripMenuItem
             // 
-            this.startToolStripMenuItem1.Name = "startToolStripMenuItem1";
-            this.startToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.startToolStripMenuItem1.Text = "&Start";
+            this.trayDividerToolStripMenuItem.Name = "trayDividerToolStripMenuItem";
+            this.trayDividerToolStripMenuItem.Size = new System.Drawing.Size(129, 6);
             // 
-            // stopToolStripMenuItem1
+            // exitTrayToolStripMenuItem
             // 
-            this.stopToolStripMenuItem1.Name = "stopToolStripMenuItem1";
-            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.stopToolStripMenuItem1.Text = "S&top";
+            this.exitTrayToolStripMenuItem.Name = "exitTrayToolStripMenuItem";
+            this.exitTrayToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.exitTrayToolStripMenuItem.Text = "&Exit";
+            this.exitTrayToolStripMenuItem.Click += new System.EventHandler(this.exitTrayToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -394,12 +400,12 @@ namespace nginx_php_manager.ui
         private System.Windows.Forms.ContextMenuStrip mainTrayContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem showFormToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem phpTrayToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startPhpTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopPhpTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nginxTrayToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem startNginxTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopNginxTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator trayDividerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitTrayToolStripMenuItem;
     }
 }

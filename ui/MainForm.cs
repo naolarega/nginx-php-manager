@@ -14,6 +14,37 @@ namespace nginx_php_manager.ui
         private void MainForm_Load(object sender, EventArgs e)
         {
             loadConfig();
+            configTrayControl();
+            registerEvents();
+        }
+
+        private void configTrayControl()
+        {
+            if(ProcessManagement.isProcessAlreadyRunning(
+                ProcessManagement.phpProcessName
+                ))
+            {
+                startPhpTrayToolStripMenuItem.Enabled = false;
+                stopPhpTrayToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                startPhpTrayToolStripMenuItem.Enabled = true;
+                stopPhpTrayToolStripMenuItem.Enabled = false;
+            }
+
+            if(ProcessManagement.isProcessAlreadyRunning(
+                ProcessManagement.nginxProcessName
+                ))
+            {
+                startNginxTrayToolStripMenuItem.Enabled = false;
+                stopNginxTrayToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                startNginxTrayToolStripMenuItem.Enabled = true;
+                stopNginxTrayToolStripMenuItem.Enabled = false;
+            }
         }
 
         private void loadConfig()
@@ -73,12 +104,10 @@ namespace nginx_php_manager.ui
                 }
             }
 
-            if (closeToTrayToolStripMenuItem.Checked)
+            if (closeToTrayToolStripMenuItem.Checked && e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
-                WindowState = FormWindowState.Minimized;
-                ShowInTaskbar = false;
-                mainNotifyIcon.Visible = true;
+                hideMainFormToTray();
             }
         }
 
@@ -119,9 +148,136 @@ namespace nginx_php_manager.ui
 
         private void mainNotifyIcon_DoubleClick(object sender, EventArgs e)
         {
+            showMainFormFromTray();
+        }
+
+        private void hideMainFormToTray()
+        {
+            WindowState = FormWindowState.Minimized;
+            ShowInTaskbar = false;
+            mainNotifyIcon.Visible = true;
+        }
+
+        private void showMainFormFromTray()
+        {
             WindowState = FormWindowState.Normal;
             ShowInTaskbar = true;
             mainNotifyIcon.Visible = false;
+        }
+
+        private void showFormToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showMainFormFromTray();
+        }
+
+        private void exitTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void startPhpTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProcessManagement.startPhpProcess();
+        }
+
+        private void stopPhpTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProcessManagement.stopPhpProcess();
+        }
+
+        private void startNginxTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProcessManagement.startNginxProcess();
+        }
+
+        private void stopNginxTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProcessManagement.stopNginxProcess();
+        }
+
+        private void registerEvents()
+        {
+            ProcessManagement.phpStarted += onPhpStarted;
+            ProcessManagement.phpStopped += onPhpStopped;
+
+            ProcessManagement.nginxStarted += onNginxStarted;
+            ProcessManagement.nginxStopped += onNginxStopped;
+        }
+
+        private void changePhpStatus(ProcessManagement.ProcessStatus status)
+        {
+            if(status == ProcessManagement.ProcessStatus.RUNNING)
+            {
+                stopPhpTrayToolStripMenuItem.Enabled = true;
+                startPhpTrayToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                stopPhpTrayToolStripMenuItem.Enabled = false;
+                startPhpTrayToolStripMenuItem.Enabled = true;
+            }
+        }
+
+        private void changeNginxStatus(ProcessManagement.ProcessStatus status)
+        {
+            if(status == ProcessManagement.ProcessStatus.RUNNING)
+            {
+                stopNginxTrayToolStripMenuItem.Enabled = true;
+                startNginxTrayToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                stopNginxTrayToolStripMenuItem.Enabled = false;
+                startNginxTrayToolStripMenuItem.Enabled = true;
+            }
+        }
+
+        public void onPhpStarted(bool started)
+        {
+            if (started)
+            {
+                changePhpStatus(ProcessManagement.ProcessStatus.RUNNING);
+            }
+            else
+            {
+                changePhpStatus(ProcessManagement.ProcessStatus.STOPPED);
+            }
+        }
+
+        public void onPhpStopped(bool stopped)
+        {
+            if (stopped)
+            {
+                changePhpStatus(ProcessManagement.ProcessStatus.STOPPED);
+            }
+            else
+            {
+                changePhpStatus(ProcessManagement.ProcessStatus.RUNNING);
+            }
+        }
+
+        public void onNginxStarted(bool started)
+        {
+            if (started)
+            {
+                changeNginxStatus(ProcessManagement.ProcessStatus.RUNNING);
+            }
+            else
+            {
+                changeNginxStatus(ProcessManagement.ProcessStatus.STOPPED);
+            }
+        }
+
+        public void onNginxStopped(bool stopped)
+        {
+            if (stopped)
+            {
+                changeNginxStatus(ProcessManagement.ProcessStatus.STOPPED);
+            }
+            else
+            {
+                changeNginxStatus(ProcessManagement.ProcessStatus.RUNNING);
+            }
         }
     }
 }

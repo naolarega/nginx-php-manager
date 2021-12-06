@@ -20,14 +20,17 @@ namespace nginx_php_manager.lib
         public static string phpExecutable = "php-cgi.exe";
         public delegate void ProcessManagementEventHandler(string message);
         public delegate void ProcessManagementExitEventHandler(int code);
+        public delegate void ProcessManagementActionEventHandler(bool flag);
         public static event ProcessManagementEventHandler nginxDataRecieved;
         public static event ProcessManagementEventHandler phpDataRecieved;
         public static event ProcessManagementEventHandler nginxErrorRecieved;
         public static event ProcessManagementEventHandler phpErrorRecieved;
-        public static event ProcessManagementExitEventHandler phpExited;
-        public static event ProcessManagementExitEventHandler nginxExited;
+        public static event ProcessManagementActionEventHandler phpStarted;
+        public static event ProcessManagementActionEventHandler nginxStarted;
+        public static event ProcessManagementActionEventHandler phpStopped;
+        public static event ProcessManagementActionEventHandler nginxStopped;
 
-        public static bool startNginxProcess()
+        public static void startNginxProcess()
         {
             if (
                 !isProcessAlreadyRunning(nginxProcessName) &&
@@ -54,18 +57,20 @@ namespace nginx_php_manager.lib
                 try
                 {
                     nginxProcess.Start();
-                    return true;
+                    nginxStarted(true);
                 }
                 catch(Exception e)
                 {
-                    nginxErrorRecieved(e.Message);
-                    return false;
+                    nginxStarted(false);
                 }
             }
-            return false;
+            else
+            {
+                nginxStarted(false);
+            }
         }
 
-        public static bool startPhpProcess()
+        public static void startPhpProcess()
         {
             bool notRunning = !isProcessAlreadyRunning(phpProcessName);
             bool pathValid = isPathValid(
@@ -98,26 +103,28 @@ namespace nginx_php_manager.lib
                 try
                 {
                     phpProcess.Start();
-                    return true;
+                    phpStarted(true);
                 }
                 catch(Exception e)
                 {
                     phpErrorRecieved(e.Message);
-                    return false;
+                    phpStarted(false);
                 }
-            }
-
-            if (!notRunning)
-            {
-                return true;
-            }
-            else if (!pathValid)
-            {
-                return false;
             }
             else
             {
-                return false;
+                if (!notRunning)
+                {
+                    phpStarted(true);
+                }
+                else if (!pathValid)
+                {
+                    phpStarted(false);
+                }
+                else
+                {
+                    phpStarted(false);
+                }
             }
         }
 
@@ -137,17 +144,15 @@ namespace nginx_php_manager.lib
                 nginxStopProcess.StartInfo.CreateNoWindow = true;
                 nginxStopProcess.StartInfo.Arguments = "-s stop";
 
-                nginxStopProcess.EnableRaisingEvents = true;
-
-                nginxStopProcess.Exited += (sender, e) => nginxExited(1);
-
                 try
                 {
                     nginxStopProcess.Start();
+                    nginxStopped(true);
                 }
                 catch(Exception e)
                 {
                     nginxErrorRecieved(e.Message);
+                    nginxStopped(false);
                 }
             }
         }
@@ -167,12 +172,19 @@ namespace nginx_php_manager.lib
                         process.Kill(true);
                         killedPhpProcessed++;
                     }
-                    catch { }
+                    catch(Exception e)
+                    {
+                        phpErrorRecieved(e.Message);
+                    }
                 }
                 
                 if(killedPhpProcessed == totalPhpProcesses)
                 {
-                    phpExited(1);
+                    phpStopped(true);
+                }
+                else
+                {
+                    phpStopped(false);
                 }
             }
         }
