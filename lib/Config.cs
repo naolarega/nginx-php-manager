@@ -55,11 +55,13 @@ namespace nginx_php_manager.lib
 
                 generateNginxDocument(ref configDocument, ref configRoot);
                 generatePhpDocument(ref configDocument, ref configRoot);
-                
+                generateGeneralDocument(ref configDocument, ref configRoot);
+
                 configDocument.AppendChild(configRoot);
                 configDocument.Save(
                     configPath
                     );
+                modified = false;
             }
         }
 
@@ -118,6 +120,24 @@ namespace nginx_php_manager.lib
             }
         }
 
+        private static void generateGeneralDocument(ref XmlDocument configDocument, ref XmlElement configRoot)
+        {
+            if (config.general != null)
+            {
+                XmlElement generalConfig = configDocument.CreateElement("general");
+                XmlElement generalCloseToTray = configDocument.CreateElement("closeToTray");
+
+                generalCloseToTray.SetAttribute(
+                    "value",
+                    config.general.closeToTray.ToString()
+                    );
+
+                generalConfig.AppendChild(generalCloseToTray);
+
+                configRoot.AppendChild(generalConfig);
+            }
+        }
+
         public static void init()
         {
             if(config == null)
@@ -125,6 +145,7 @@ namespace nginx_php_manager.lib
                 config = new ConfigModel();
                 config.nginx = new NginxModel();
                 config.php = new PhpModel();
+                config.general = new GeneralModel();
             }
             else
             {
@@ -132,6 +153,7 @@ namespace nginx_php_manager.lib
                 {
                     config.nginx = new NginxModel();
                     config.php = new PhpModel();
+                    config.general = new GeneralModel();
                 }
             }
         }
@@ -151,6 +173,9 @@ namespace nginx_php_manager.lib
                         case "php":
                             loadPhpConfig(node.ChildNodes);
                             break;
+                        case "general":
+                            loadGeneralConfig(node.ChildNodes);
+                            break;
                         default:
                             break;
                     }
@@ -158,9 +183,9 @@ namespace nginx_php_manager.lib
             }
         }
 
-        private static void loadNginxConfig(XmlNodeList nginxNode)
+        private static void loadNginxConfig(XmlNodeList nginxNodes)
         {
-            foreach(XmlNode node in nginxNode)
+            foreach(XmlNode node in nginxNodes)
             {
                 switch (node.Name)
                 {
@@ -180,9 +205,9 @@ namespace nginx_php_manager.lib
             }
         }
 
-        private static void loadPhpConfig(XmlNodeList nginxNode)
+        private static void loadPhpConfig(XmlNodeList phpNodes)
         {
-            foreach(XmlNode node in nginxNode)
+            foreach(XmlNode node in phpNodes)
             {
                 switch (node.Name)
                 {
@@ -203,6 +228,25 @@ namespace nginx_php_manager.lib
                             decimal.TryParse(node.Attributes["port"].Value, out port);
                             config.php.port = port;
                         }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private static void loadGeneralConfig(XmlNodeList generalNodes)
+        {
+            foreach (XmlNode node in generalNodes)
+            {
+                switch (node.Name)
+                {
+                    case "closeToTray":
+                        config.general.closeToTray = node.Attributes["value"] != null ?
+                            (node.Attributes["value"].Value == bool.TrueString ?
+                                true :
+                                false) :
+                            false;
                         break;
                     default:
                         break;

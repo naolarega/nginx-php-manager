@@ -4,5 +4,6 @@
     {
         public NginxModel nginx { get; set; }
         public PhpModel php { get; set; }
+        public GeneralModel general { get; set; }
     }
 }

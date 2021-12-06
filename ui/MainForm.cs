@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using nginx_php_manager.lib;
 
 namespace nginx_php_manager.ui
@@ -10,7 +11,7 @@ namespace nginx_php_manager.ui
             InitializeComponent();
         }
 
-        private void MainForm_Load(object sender, System.EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             loadConfig();
         }
@@ -38,6 +39,15 @@ namespace nginx_php_manager.ui
 
                 Config.init();
             }
+            assignSettings();
+        }
+
+        private void assignSettings()
+        {
+            if(Config.config != null)
+            {
+                closeToTrayToolStripMenuItem.Checked = Config.config.general.closeToTray;
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -45,43 +55,56 @@ namespace nginx_php_manager.ui
             if(Config.modified)
             {
                 DialogResult result = MessageBox.Show(
-                    "Are you sure you want to exit without saving!",
+                    "You haven't saved your settings, do you want to save it!",
                     "Notice",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Exclamation
                     );
 
-                if (result == DialogResult.Cancel || result == DialogResult.No)
+                if (result == DialogResult.Cancel)
                 {
                     e.Cancel = true;
+                }
+                else if(result == DialogResult.Yes)
+                {
+                    Config.save();
                 }
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void saveToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Config.save();
         }
 
-        private void nginxToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void nginxToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainFormTabControl.SelectedTab = mainFormTabControl.TabPages["nginxTabPage"];
         }
 
-        private void phpToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void phpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainFormTabControl.SelectedTab = mainFormTabControl.TabPages["phpTabPage"];
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm aboutDialog = new AboutForm();
             aboutDialog.ShowDialog();
+        }
+
+        private void closeToTrayToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if(Config.config != null)
+            {
+                Config.config.general.closeToTray = closeToTrayToolStripMenuItem.Checked;
+                Config.save();
+            }
         }
     }
 }

@@ -58,5 +58,10 @@ namespace nginx_php_manager.ui
             Config.init();
             assignValues();
         }
+
+        private void nginxConfig_TextChanged(object sender, EventArgs e)
+        {
+            Config.modified = true;
+        }
     }
 }

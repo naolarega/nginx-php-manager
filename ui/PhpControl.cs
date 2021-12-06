@@ -31,11 +31,13 @@ namespace nginx_php_manager.ui
         private void phpAddressTextBox_TextChanged(object sender, EventArgs e)
         {
             Config.config.php.address = phpAddressTextBox.Text;
+            Config.modified = true;
         }
 
         private void phpPortNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             Config.config.php.port = phpPortNumericUpDown.Value;
+            Config.modified = true;
         }
 
 
@@ -51,6 +53,11 @@ namespace nginx_php_manager.ui
         {
             Config.init();
             assignValues();
+        }
+
+        private void phpConfig_TextChanged(object sender, EventArgs e)
+        {
+            Config.modified = true;
         }
     }
 }

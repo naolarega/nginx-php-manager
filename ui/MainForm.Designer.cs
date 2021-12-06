@@ -29,6 +29,7 @@ namespace nginx_php_manager.ui
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainFormMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +53,7 @@ namespace nginx_php_manager.ui
             this.nginxControl = new nginx_php_manager.ui.NginxControl();
             this.phpTabPage = new System.Windows.Forms.TabPage();
             this.phpControl = new nginx_php_manager.ui.PhpControl();
+            this.mainNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.mainFormMenuStrip.SuspendLayout();
             this.mainFormStatusStrip.SuspendLayout();
             this.mainFormTabControl.SuspendLayout();
@@ -139,6 +141,7 @@ namespace nginx_php_manager.ui
             this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
             this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeToTrayToolStripMenuItem.Text = "&Close to tray";
+            this.closeToTrayToolStripMenuItem.CheckedChanged += new System.EventHandler(this.closeToTrayToolStripMenuItem_CheckedChanged);
             // 
             // helpToolStripMenuItem
             // 
@@ -239,6 +242,15 @@ namespace nginx_php_manager.ui
             this.phpControl.Size = new System.Drawing.Size(585, 254);
             this.phpControl.TabIndex = 0;
             // 
+            // mainNotifyIcon
+            // 
+            this.mainNotifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.mainNotifyIcon.BalloonTipText = "Gui to control nginx and php";
+            this.mainNotifyIcon.BalloonTipTitle = "Nginx php manager";
+            this.mainNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("mainNotifyIcon.Icon")));
+            this.mainNotifyIcon.Text = "Nginx php manager";
+            this.mainNotifyIcon.Visible = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -295,6 +307,7 @@ namespace nginx_php_manager.ui
         private System.Windows.Forms.ToolStripMenuItem nginxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem phpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToTrayToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon mainNotifyIcon;
     }
 }
 
