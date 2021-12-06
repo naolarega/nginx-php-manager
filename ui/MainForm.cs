@@ -52,7 +52,7 @@ namespace nginx_php_manager.ui
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(Config.modified)
+            if (Config.modified)
             {
                 DialogResult result = MessageBox.Show(
                     "You haven't saved your settings, do you want to save it!",
@@ -64,11 +64,21 @@ namespace nginx_php_manager.ui
                 if (result == DialogResult.Cancel)
                 {
                     e.Cancel = true;
+                    return;
                 }
                 else if(result == DialogResult.Yes)
                 {
                     Config.save();
+                    return;
                 }
+            }
+
+            if (closeToTrayToolStripMenuItem.Checked)
+            {
+                e.Cancel = true;
+                WindowState = FormWindowState.Minimized;
+                ShowInTaskbar = false;
+                mainNotifyIcon.Visible = true;
             }
         }
 
@@ -105,6 +115,13 @@ namespace nginx_php_manager.ui
                 Config.config.general.closeToTray = closeToTrayToolStripMenuItem.Checked;
                 Config.save();
             }
+        }
+
+        private void mainNotifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
+            ShowInTaskbar = true;
+            mainNotifyIcon.Visible = false;
         }
     }
 }

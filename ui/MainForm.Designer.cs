@@ -54,12 +54,23 @@ namespace nginx_php_manager.ui
             this.phpTabPage = new System.Windows.Forms.TabPage();
             this.phpControl = new nginx_php_manager.ui.PhpControl();
             this.mainNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.mainTrayContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.phpTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nginxTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormMenuStrip.SuspendLayout();
             this.mainFormStatusStrip.SuspendLayout();
             this.mainFormTabControl.SuspendLayout();
             this.controlTabPage.SuspendLayout();
             this.nginxTabPage.SuspendLayout();
             this.phpTabPage.SuspendLayout();
+            this.mainTrayContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainFormMenuStrip
@@ -139,7 +150,7 @@ namespace nginx_php_manager.ui
             // 
             this.closeToTrayToolStripMenuItem.CheckOnClick = true;
             this.closeToTrayToolStripMenuItem.Name = "closeToTrayToolStripMenuItem";
-            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToTrayToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.closeToTrayToolStripMenuItem.Text = "&Close to tray";
             this.closeToTrayToolStripMenuItem.CheckedChanged += new System.EventHandler(this.closeToTrayToolStripMenuItem_CheckedChanged);
             // 
@@ -247,9 +258,80 @@ namespace nginx_php_manager.ui
             this.mainNotifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.mainNotifyIcon.BalloonTipText = "Gui to control nginx and php";
             this.mainNotifyIcon.BalloonTipTitle = "Nginx php manager";
+            this.mainNotifyIcon.ContextMenuStrip = this.mainTrayContextMenuStrip;
             this.mainNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("mainNotifyIcon.Icon")));
             this.mainNotifyIcon.Text = "Nginx php manager";
-            this.mainNotifyIcon.Visible = true;
+            this.mainNotifyIcon.DoubleClick += new System.EventHandler(this.mainNotifyIcon_DoubleClick);
+            // 
+            // mainTrayContextMenuStrip
+            // 
+            this.mainTrayContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showFormToolStripMenuItem,
+            this.phpTrayToolStripMenuItem,
+            this.nginxTrayToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.exitTrayToolStripMenuItem});
+            this.mainTrayContextMenuStrip.Name = "mainTrayContextMenuStrip";
+            this.mainTrayContextMenuStrip.Size = new System.Drawing.Size(181, 120);
+            // 
+            // showFormToolStripMenuItem
+            // 
+            this.showFormToolStripMenuItem.Name = "showFormToolStripMenuItem";
+            this.showFormToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showFormToolStripMenuItem.Text = "&Show form";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // exitTrayToolStripMenuItem
+            // 
+            this.exitTrayToolStripMenuItem.Name = "exitTrayToolStripMenuItem";
+            this.exitTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitTrayToolStripMenuItem.Text = "&Exit";
+            // 
+            // phpTrayToolStripMenuItem
+            // 
+            this.phpTrayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.stopToolStripMenuItem});
+            this.phpTrayToolStripMenuItem.Name = "phpTrayToolStripMenuItem";
+            this.phpTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.phpTrayToolStripMenuItem.Text = "&Php";
+            // 
+            // nginxTrayToolStripMenuItem
+            // 
+            this.nginxTrayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem1,
+            this.stopToolStripMenuItem1});
+            this.nginxTrayToolStripMenuItem.Name = "nginxTrayToolStripMenuItem";
+            this.nginxTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nginxTrayToolStripMenuItem.Text = "&Nginx";
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Text = "&Start";
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Text = "S&top";
+            // 
+            // startToolStripMenuItem1
+            // 
+            this.startToolStripMenuItem1.Name = "startToolStripMenuItem1";
+            this.startToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem1.Text = "&Start";
+            // 
+            // stopToolStripMenuItem1
+            // 
+            this.stopToolStripMenuItem1.Name = "stopToolStripMenuItem1";
+            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem1.Text = "S&top";
             // 
             // MainForm
             // 
@@ -278,6 +360,7 @@ namespace nginx_php_manager.ui
             this.controlTabPage.ResumeLayout(false);
             this.nginxTabPage.ResumeLayout(false);
             this.phpTabPage.ResumeLayout(false);
+            this.mainTrayContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -308,6 +391,16 @@ namespace nginx_php_manager.ui
         private System.Windows.Forms.ToolStripMenuItem phpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToTrayToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon mainNotifyIcon;
+        private System.Windows.Forms.ContextMenuStrip mainTrayContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem showFormToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem phpTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nginxTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem exitTrayToolStripMenuItem;
     }
 }
 
