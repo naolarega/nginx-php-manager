@@ -111,7 +111,7 @@
             this.phpDirectoryTextBox.Name = "phpDirectoryTextBox";
             this.phpDirectoryTextBox.Size = new System.Drawing.Size(382, 23);
             this.phpDirectoryTextBox.TabIndex = 2;
-            this.phpDirectoryTextBox.TextChanged += new System.EventHandler(this.phpConfig_TextChanged);
+            this.phpDirectoryTextBox.TextChanged += new System.EventHandler(this.phpDirectory_TextChanged);
             // 
             // phpDirectoryLabel
             // 

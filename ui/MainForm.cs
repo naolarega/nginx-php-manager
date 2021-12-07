@@ -6,6 +6,13 @@ namespace nginx_php_manager.ui
 {
     public partial class MainForm : Form
     {
+        public enum ProcessTypes
+        {
+            NGINX,
+            PHP,
+            NONE
+        };
+
         public MainForm()
         {
             InitializeComponent();
@@ -13,37 +20,87 @@ namespace nginx_php_manager.ui
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            loadConfig();
-            configTrayControl();
             registerEvents();
+            loadConfig();
         }
 
-        private void configTrayControl()
+        private void checkSettings()
         {
-            if(ProcessManagement.isProcessAlreadyRunning(
-                ProcessManagement.phpProcessName
-                ))
+            if(Config.config != null)
             {
-                startPhpTrayToolStripMenuItem.Enabled = false;
-                stopPhpTrayToolStripMenuItem.Enabled = true;
-            }
-            else
-            {
-                startPhpTrayToolStripMenuItem.Enabled = true;
-                stopPhpTrayToolStripMenuItem.Enabled = false;
-            }
+                if(!ProcessManagement.isPathValid(
+                        Config.config.php.directory.Trim('\\'),
+                        ProcessManagement.phpExecutable
+                        )
+                    )
+                {
+                    startPhpTrayToolStripMenuItem.Enabled = false;
+                    stopPhpTrayToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    configTrayControl(ProcessTypes.PHP);
+                }
 
-            if(ProcessManagement.isProcessAlreadyRunning(
-                ProcessManagement.nginxProcessName
-                ))
-            {
-                startNginxTrayToolStripMenuItem.Enabled = false;
-                stopNginxTrayToolStripMenuItem.Enabled = true;
+                if(!ProcessManagement.isPathValid(
+                        Config.config.nginx.directory.Trim('\\'),
+                        ProcessManagement.nginxExecutable
+                        )
+                    )
+                {
+                    startNginxTrayToolStripMenuItem.Enabled = false;
+                    stopNginxTrayToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    configTrayControl(ProcessTypes.NGINX);
+                }
             }
             else
             {
-                startNginxTrayToolStripMenuItem.Enabled = true;
-                stopNginxTrayToolStripMenuItem.Enabled = false;
+                configTrayControl(ProcessTypes.NONE);
+            }
+        }
+
+        private void configTrayControl(ProcessTypes process)
+        {
+            switch (process)
+            {
+                case ProcessTypes.PHP:
+                    if (ProcessManagement.isProcessAlreadyRunning(
+                        ProcessManagement.phpProcessName
+                        ))
+                    {
+                        startPhpTrayToolStripMenuItem.Enabled = false;
+                        stopPhpTrayToolStripMenuItem.Enabled = true;
+                    }
+                    else
+                    {
+                        startPhpTrayToolStripMenuItem.Enabled = true;
+                        stopPhpTrayToolStripMenuItem.Enabled = false;
+                    }
+                    break;
+                case ProcessTypes.NGINX:
+                    if (ProcessManagement.isProcessAlreadyRunning(
+                        ProcessManagement.nginxProcessName
+                        ))
+                    {
+                        startNginxTrayToolStripMenuItem.Enabled = false;
+                        stopNginxTrayToolStripMenuItem.Enabled = true;
+                    }
+                    else
+                    {
+                        startNginxTrayToolStripMenuItem.Enabled = true;
+                        stopNginxTrayToolStripMenuItem.Enabled = false;
+                    }
+                    break;
+                case ProcessTypes.NONE:
+                    startPhpTrayToolStripMenuItem.Enabled = false;
+                    stopPhpTrayToolStripMenuItem.Enabled = false;
+                    startNginxTrayToolStripMenuItem.Enabled = false;
+                    stopNginxTrayToolStripMenuItem.Enabled = false;
+                    break;
+
             }
         }
 
@@ -95,11 +152,14 @@ namespace nginx_php_manager.ui
                 if (result == DialogResult.Cancel)
                 {
                     e.Cancel = true;
-                    return;
                 }
                 else if(result == DialogResult.Yes)
                 {
                     Config.save();
+                }
+
+                if (!closeToTrayToolStripMenuItem.Checked)
+                {
                     return;
                 }
             }
@@ -160,8 +220,8 @@ namespace nginx_php_manager.ui
 
         private void showMainFormFromTray()
         {
-            WindowState = FormWindowState.Normal;
             ShowInTaskbar = true;
+            WindowState = FormWindowState.Normal;
             mainNotifyIcon.Visible = false;
         }
 
@@ -197,6 +257,8 @@ namespace nginx_php_manager.ui
 
         private void registerEvents()
         {
+            Config.configRead += onConfigRead;
+
             ProcessManagement.phpStarted += onPhpStarted;
             ProcessManagement.phpStopped += onPhpStopped;
 
@@ -232,7 +294,12 @@ namespace nginx_php_manager.ui
             }
         }
 
-        public void onPhpStarted(bool started)
+        private void onConfigRead(object read)
+        {
+            checkSettings();
+        }
+
+        private void onPhpStarted(bool started)
         {
             if (started)
             {
@@ -244,7 +311,7 @@ namespace nginx_php_manager.ui
             }
         }
 
-        public void onPhpStopped(bool stopped)
+        private void onPhpStopped(bool stopped)
         {
             if (stopped)
             {
@@ -256,7 +323,7 @@ namespace nginx_php_manager.ui
             }
         }
 
-        public void onNginxStarted(bool started)
+        private void onNginxStarted(bool started)
         {
             if (started)
             {
@@ -268,7 +335,7 @@ namespace nginx_php_manager.ui
             }
         }
 
-        public void onNginxStopped(bool stopped)
+        private void onNginxStopped(bool stopped)
         {
             if (stopped)
             {

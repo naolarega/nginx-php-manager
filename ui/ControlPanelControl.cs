@@ -11,10 +11,11 @@ namespace nginx_php_manager.ui
         {
             RUNNING,
             PAUSED,
-            STOPPED
+            STOPPED,
+            NONE
         };
-        private ProcessStatus nginxStatus = ProcessStatus.STOPPED;
-        private ProcessStatus phpStatus = ProcessStatus.STOPPED;
+        private ProcessStatus nginxStatus = ProcessStatus.NONE;
+        private ProcessStatus phpStatus = ProcessStatus.NONE;
 
         public ControlPanelControl()
         {
@@ -28,22 +29,58 @@ namespace nginx_php_manager.ui
 
         private void ControlPanelControl_Load(object sender, EventArgs e)
         {
-            if(ProcessManagement.isProcessAlreadyRunning(
-                ProcessManagement.nginxProcessName
-                ))
-            {
-                changeNginxStatus(ProcessStatus.RUNNING);
-            }
-
-            if(ProcessManagement.isProcessAlreadyRunning(
-                ProcessManagement.phpProcessName
-                ))
-            {
-                changePhpStatus(ProcessStatus.RUNNING);
-            }
             registerEvents();
-            checkNginxStatus();
+        }
+
+        private void checkSettings()
+        {
+            if (Config.config != null)
+            {
+                if (!ProcessManagement.isPathValid(
+                        Config.config.php.directory.Trim('\\'),
+                        ProcessManagement.phpExecutable
+                        )
+                    )
+                {
+                    changePhpStatus(ProcessStatus.NONE);
+                }
+                else if (ProcessManagement.isProcessAlreadyRunning(
+                    ProcessManagement.phpProcessName
+                    ))
+                {
+                    changePhpStatus(ProcessStatus.RUNNING);
+                }
+                else
+                {
+                    changePhpStatus(ProcessStatus.STOPPED);
+                }
+
+                if (!ProcessManagement.isPathValid(
+                        Config.config.nginx.directory.Trim('\\'),
+                        ProcessManagement.nginxExecutable
+                        )
+                    )
+                {
+                    changeNginxStatus(ProcessStatus.NONE);
+                }
+                else if (ProcessManagement.isProcessAlreadyRunning(
+                    ProcessManagement.nginxProcessName
+                    ))
+                {
+                    changeNginxStatus(ProcessStatus.RUNNING);
+                }
+                else
+                {
+                    changeNginxStatus(ProcessStatus.STOPPED);
+                }
+            }
+            else
+            {
+                changeNginxStatus(ProcessStatus.NONE);
+                changePhpStatus(ProcessStatus.NONE);
+            }
             checkPhpStatus();
+            checkNginxStatus();
         }
 
         private void changeNginxStatus(ProcessStatus status)
@@ -66,6 +103,12 @@ namespace nginx_php_manager.ui
                 nginxStopButton.PerformSafely(() => nginxStopButton.Enabled = true);
                 nginxStartButton.PerformSafely(() => nginxStartButton.Enabled = false);
             }
+            else if (nginxStatus == ProcessStatus.NONE)
+            {
+                nginxStatusPictureBox.PerformSafely(() => nginxStatusPictureBox.Image = Resources.stopped);
+                nginxStopButton.PerformSafely(() => nginxStopButton.Enabled = false);
+                nginxStartButton.PerformSafely(() => nginxStartButton.Enabled = false);
+            }
             else
             {
                 nginxStatusPictureBox.PerformSafely(() => nginxStatusPictureBox.Image = Resources.stopped);
@@ -80,6 +123,12 @@ namespace nginx_php_manager.ui
             {
                 phpStatusPictureBox.PerformSafely(() => phpStatusPictureBox.Image = Resources.running);
                 phpStopButton.PerformSafely(() => phpStopButton.Enabled = true);
+                phpStartButton.PerformSafely(() => phpStartButton.Enabled = false);
+            }
+            else if (phpStatus == ProcessStatus.NONE)
+            {
+                phpStatusPictureBox.PerformSafely(() => phpStatusPictureBox.Image = Resources.stopped);
+                phpStopButton.PerformSafely(() => phpStopButton.Enabled = false);
                 phpStartButton.PerformSafely(() => phpStartButton.Enabled = false);
             }
             else
@@ -107,6 +156,8 @@ namespace nginx_php_manager.ui
 
         private void registerEvents()
         {
+            Config.configRead += onConfigRead;
+
             ProcessManagement.nginxDataRecieved += onNginxDataRecieved;
             ProcessManagement.nginxErrorRecieved += onNginxErrorRecieved;
             ProcessManagement.nginxStarted += onNginxStarted;
@@ -118,7 +169,12 @@ namespace nginx_php_manager.ui
             ProcessManagement.phpStopped += onPhpStopped;
         }
 
-        public void onPhpStarted(bool started)
+        private void onConfigRead(object read)
+        {
+            checkSettings();
+        }
+
+        private void onPhpStarted(bool started)
         {
             if (started)
             {
@@ -130,7 +186,7 @@ namespace nginx_php_manager.ui
             }
         }
 
-        public void onPhpStopped(bool stopped)
+        private void onPhpStopped(bool stopped)
         {
             if (stopped)
             {
@@ -142,7 +198,7 @@ namespace nginx_php_manager.ui
             }
         }
 
-        public void onNginxStarted(bool started)
+        private void onNginxStarted(bool started)
         {
             if (started)
             {
@@ -154,7 +210,7 @@ namespace nginx_php_manager.ui
             }
         }
 
-        public void onNginxStopped(bool stopped)
+        private void onNginxStopped(bool stopped)
         {
             if (stopped)
             {
@@ -166,7 +222,7 @@ namespace nginx_php_manager.ui
             }
         }
         
-        public void onNginxDataRecieved(string e)
+        private void onNginxDataRecieved(string e)
         {
             MessageBox.Show(
                 e,
@@ -176,7 +232,7 @@ namespace nginx_php_manager.ui
                 );
         }
 
-        public void onNginxErrorRecieved(string e)
+        private void onNginxErrorRecieved(string e)
         {
             MessageBox.Show(
                 e,
@@ -186,7 +242,7 @@ namespace nginx_php_manager.ui
                 );
         }
 
-        public void onPhpDataRecieved(string e)
+        private void onPhpDataRecieved(string e)
         {
             MessageBox.Show(
                 e,
@@ -196,7 +252,7 @@ namespace nginx_php_manager.ui
                 );
         }
 
-        public void onPhpErrorRecieved(string e)
+        private void onPhpErrorRecieved(string e)
         {
             MessageBox.Show(
                 e,

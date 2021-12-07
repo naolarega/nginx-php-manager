@@ -128,7 +128,7 @@ namespace nginx_php_manager.ui
             this.nginxConfigTextBox.Name = "nginxConfigTextBox";
             this.nginxConfigTextBox.Size = new System.Drawing.Size(307, 23);
             this.nginxConfigTextBox.TabIndex = 5;
-            this.nginxConfigTextBox.TextChanged += new System.EventHandler(this.nginxConfig_TextChanged);
+            this.nginxConfigTextBox.TextChanged += new System.EventHandler(this.nginxConfigFile_TextChanged);
             // 
             // nginxConfigLabel
             // 
@@ -159,7 +159,7 @@ namespace nginx_php_manager.ui
             this.nginxDirectoryTextBox.Name = "nginxDirectoryTextBox";
             this.nginxDirectoryTextBox.Size = new System.Drawing.Size(307, 23);
             this.nginxDirectoryTextBox.TabIndex = 2;
-            this.nginxDirectoryTextBox.TextChanged += new System.EventHandler(this.nginxConfig_TextChanged);
+            this.nginxDirectoryTextBox.TextChanged += new System.EventHandler(this.nginxDirectory_TextChanged);
             // 
             // NginxControl
             // 

@@ -80,6 +80,7 @@
             // 
             // nginxStopButton
             // 
+            this.nginxStopButton.Enabled = false;
             this.nginxStopButton.Location = new System.Drawing.Point(164, 10);
             this.nginxStopButton.Name = "nginxStopButton";
             this.nginxStopButton.Size = new System.Drawing.Size(75, 23);
@@ -90,6 +91,7 @@
             // 
             // phpStopButton
             // 
+            this.phpStopButton.Enabled = false;
             this.phpStopButton.Location = new System.Drawing.Point(164, 39);
             this.phpStopButton.Name = "phpStopButton";
             this.phpStopButton.Size = new System.Drawing.Size(75, 23);
@@ -147,6 +149,7 @@
             // 
             // phpStartButton
             // 
+            this.phpStartButton.Enabled = false;
             this.phpStartButton.Location = new System.Drawing.Point(83, 39);
             this.phpStartButton.Name = "phpStartButton";
             this.phpStartButton.Size = new System.Drawing.Size(75, 23);
@@ -166,6 +169,7 @@
             // 
             // nginxStartButton
             // 
+            this.nginxStartButton.Enabled = false;
             this.nginxStartButton.Location = new System.Drawing.Point(83, 10);
             this.nginxStartButton.Name = "nginxStartButton";
             this.nginxStartButton.Size = new System.Drawing.Size(75, 23);

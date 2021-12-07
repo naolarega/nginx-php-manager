@@ -6,6 +6,8 @@ namespace nginx_php_manager.ui
 {
     public partial class NginxControl : UserControl
     {
+        public bool assigningFromConfig = false;
+
         public NginxControl()
         {
             InitializeComponent();
@@ -18,12 +20,17 @@ namespace nginx_php_manager.ui
             if(nginxDirectoryDialog.ShowDialog() == DialogResult.OK)
             {
                 nginxDirectoryTextBox.Text = nginxDirectoryDialog.SelectedPath;
-                if (Config.config != null)
+                assignNginxDirectory(nginxDirectoryTextBox.Text);
+            }
+        }
+
+        private void assignNginxDirectory(string path)
+        {
+            if (Config.config != null)
+            {
+                if (Config.config.nginx != null)
                 {
-                    if (Config.config.nginx != null)
-                    {
-                        Config.config.nginx.directory = nginxDirectoryTextBox.Text;
-                    }
+                    Config.config.nginx.directory = path;
                 }
             }
         }
@@ -37,20 +44,27 @@ namespace nginx_php_manager.ui
             if (nginxConfigFileDialog.ShowDialog() == DialogResult.OK)
             {
                 nginxConfigTextBox.Text = nginxConfigFileDialog.FileName;
-                if(Config.config != null)
+                assignNginxConfigFile(nginxConfigTextBox.Text);
+            }
+        }
+
+        private void assignNginxConfigFile(string path)
+        {
+            if (Config.config != null)
+            {
+                if (Config.config.nginx != null)
                 {
-                    if(Config.config.nginx != null)
-                    {
-                        Config.config.nginx.configFile = nginxConfigTextBox.Text;
-                    }
+                    Config.config.nginx.configFile = path;
                 }
             }
         }
 
         private void assignValues()
         {
+            assigningFromConfig = true;
             nginxConfigTextBox.Text = Config.config.nginx.configFile;
             nginxDirectoryTextBox.Text = Config.config.nginx.directory;
+            assigningFromConfig = false;
         }
 
         private void NginxControl_Load(object sender, EventArgs e)
@@ -59,9 +73,22 @@ namespace nginx_php_manager.ui
             assignValues();
         }
 
-        private void nginxConfig_TextChanged(object sender, EventArgs e)
+        private void nginxConfigFile_TextChanged(object sender, EventArgs e)
         {
-            Config.modified = true;
+            assignNginxConfigFile(nginxConfigTextBox.Text);
+            if (!assigningFromConfig)
+            {
+                Config.modified = true;
+            }
+        }
+
+        private void nginxDirectory_TextChanged(object sender, EventArgs e)
+        {
+            assignNginxDirectory(nginxDirectoryTextBox.Text);
+            if (!assigningFromConfig)
+            {
+                Config.modified = true;
+            }
         }
     }
 }

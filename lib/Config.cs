@@ -13,11 +13,13 @@ namespace nginx_php_manager.lib
             FAILED,
             NO_CONFIG
         };
-        private static string configFileName = "config";
-        public static ConfigModel config;
+        private static readonly string configFileName = "config";
+        public static ConfigModel config { get; set; }
         public static ConfigStatus status = ConfigStatus.NO_CONFIG;
         public static string configPath = string.Empty;
         public static bool modified = false;
+        public delegate void ConfigEventHandler(object data);
+        public static event ConfigEventHandler configRead;
 
         private Config() { }
 
@@ -34,15 +36,18 @@ namespace nginx_php_manager.lib
                         );
                     deserialize(ref configDocument);
                     status = ConfigStatus.SUCCESS;
+                    configRead(true);
                 }
                 catch
                 {
                     status = ConfigStatus.FAILED;
+                    configRead(false);
                 }
             }
             else
             {
                 status = ConfigStatus.NO_CONFIG;
+                configRead(false);
             }
         }
 

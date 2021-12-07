@@ -59,7 +59,7 @@ namespace nginx_php_manager.lib
                     nginxProcess.Start();
                     nginxStarted(true);
                 }
-                catch(Exception e)
+                catch
                 {
                     nginxStarted(false);
                 }
